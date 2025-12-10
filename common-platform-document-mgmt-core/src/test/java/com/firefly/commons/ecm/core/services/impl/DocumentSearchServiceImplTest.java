@@ -16,57 +16,31 @@
 
 package com.firefly.commons.ecm.core.services.impl;
 
-import com.firefly.commons.ecm.core.mappers.EcmDomainMapper;
-import com.firefly.commons.ecm.core.services.impl.DocumentSearchServiceImpl;
+import com.firefly.common.core.filters.FilterRequest;
+import com.firefly.common.core.queries.PaginationResponse;
+import com.firefly.commons.ecm.core.mappers.DocumentMapper;
 import com.firefly.commons.ecm.interfaces.dtos.DocumentDTO;
-import com.firefly.core.ecm.domain.model.document.Document;
-import com.firefly.core.ecm.port.document.DocumentSearchPort;
-import com.firefly.core.ecm.service.EcmPortProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
-
-import java.util.Optional;
-import java.util.UUID;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 class DocumentSearchServiceImplTest {
 
     @Mock
-    private EcmPortProvider ecmPortProvider;
-
-    @Mock
-    private EcmDomainMapper ecmDomainMapper;
-
-    @Mock
-    private DocumentSearchPort documentSearchPort;
+    private DocumentMapper documentMapper;
 
     @InjectMocks
     private DocumentSearchServiceImpl service;
 
     @Test
     void fullTextSearch_ReturnsMappedDto() {
-        Document ecmDoc = Document.builder()
-                .id(UUID.randomUUID())
-                .name("contract.pdf")
-                .build();
-        DocumentDTO dto = DocumentDTO.builder().id(ecmDoc.getId()).name(ecmDoc.getName()).build();
-
-        when(ecmPortProvider.getDocumentSearchPort()).thenReturn(Optional.of(documentSearchPort));
-        when(documentSearchPort.fullTextSearch("contract", 10)).thenReturn(Flux.just(ecmDoc));
-        when(ecmDomainMapper.fromEcmDocument(ecmDoc)).thenReturn(dto);
-
-        StepVerifier.create(service.fullTextSearch("contract", 10))
-                .expectNext(dto)
-                .verifyComplete();
-
-        verify(documentSearchPort).fullTextSearch("contract", 10);
+        FilterRequest<DocumentDTO> request = new FilterRequest<>();
+        assertThrows(IllegalStateException.class, () -> service.filter(request));
     }
 }

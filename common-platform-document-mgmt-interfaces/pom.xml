@@ -24,11 +24,6 @@
             <artifactId>lib-utils</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.firefly</groupId>
-            <artifactId>lib-plugin-manager-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!-- Validation -->
         <dependency>

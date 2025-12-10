@@ -31,7 +31,7 @@
         <!-- LibECM Core -->
         <dependency>
             <groupId>com.firefly</groupId>
-            <artifactId>lib-ecm-core</artifactId>
+            <artifactId>lib-ecm</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
