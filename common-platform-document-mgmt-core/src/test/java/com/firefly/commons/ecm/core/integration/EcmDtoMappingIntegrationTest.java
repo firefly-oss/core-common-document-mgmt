@@ -24,7 +24,7 @@ import com.firefly.commons.ecm.interfaces.dtos.DocumentSignatureDTO;
 import com.firefly.commons.ecm.interfaces.enums.SignatureFormat;
 import com.firefly.commons.ecm.interfaces.enums.SignatureStatus;
 import com.firefly.commons.ecm.interfaces.enums.SignatureType;
-import com.firefly.core.ecm.domain.model.esignature.SignatureRequest;
+import org.fireflyframework.ecm.domain.model.esignature.SignatureRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

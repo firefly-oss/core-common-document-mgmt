@@ -17,18 +17,18 @@
 
 package com.firefly.commons.ecm.core.services.impl;
 
-import com.firefly.common.core.filters.FilterRequest;
-import com.firefly.common.core.filters.FilterUtils;
-import com.firefly.common.core.queries.PaginationResponse;
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.filters.FilterUtils;
+import org.fireflyframework.core.queries.PaginationResponse;
 
 import com.firefly.commons.ecm.core.mappers.DocumentVersionMapper;
 import com.firefly.commons.ecm.core.services.DocumentVersionService;
 import com.firefly.commons.ecm.interfaces.dtos.DocumentVersionDTO;
 import com.firefly.commons.ecm.models.entities.DocumentVersion;
 import com.firefly.commons.ecm.models.repositories.DocumentVersionRepository;
-import com.firefly.core.ecm.service.EcmPortProvider;
-import com.firefly.core.ecm.port.document.DocumentVersionPort;
-import com.firefly.core.ecm.port.document.DocumentContentPort;
+import org.fireflyframework.ecm.service.EcmPortProvider;
+import org.fireflyframework.ecm.port.document.DocumentVersionPort;
+import org.fireflyframework.ecm.port.document.DocumentContentPort;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.buffer.DataBuffer;

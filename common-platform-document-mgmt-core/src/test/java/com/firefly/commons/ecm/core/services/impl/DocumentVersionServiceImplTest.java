@@ -22,7 +22,7 @@ import com.firefly.commons.ecm.interfaces.dtos.DocumentVersionDTO;
 import com.firefly.commons.ecm.interfaces.enums.StorageType;
 import com.firefly.commons.ecm.models.entities.DocumentVersion;
 import com.firefly.commons.ecm.models.repositories.DocumentVersionRepository;
-import com.firefly.core.ecm.service.EcmPortProvider;
+import org.fireflyframework.ecm.service.EcmPortProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -280,7 +280,7 @@ class DocumentVersionServiceImplTest {
         when(mapper.toDTO(testDocumentVersion)).thenReturn(testDocumentVersionDTO);
 
         // ECM content port present and accepts content
-        com.firefly.core.ecm.port.document.DocumentContentPort contentPort = mock(com.firefly.core.ecm.port.document.DocumentContentPort.class);
+        org.fireflyframework.ecm.port.document.DocumentContentPort contentPort = mock(org.fireflyframework.ecm.port.document.DocumentContentPort.class);
         when(ecmPortProvider.getDocumentContentPort()).thenReturn(java.util.Optional.of(contentPort));
         when(filePart.content()).thenReturn(Flux.empty());
         when(contentPort.storeContent(any(UUID.class), any(byte[].class), any(String.class))).thenReturn(Mono.just("/stored/path"));

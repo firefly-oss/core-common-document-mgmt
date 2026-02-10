@@ -17,19 +17,19 @@
 
 package com.firefly.commons.ecm.core.services.impl;
 
-import com.firefly.common.core.filters.FilterRequest;
-import com.firefly.common.core.filters.FilterUtils;
-import com.firefly.common.core.queries.PaginationResponse;
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.filters.FilterUtils;
+import org.fireflyframework.core.queries.PaginationResponse;
 import com.firefly.commons.ecm.core.mappers.DocumentPermissionMapper;
 import com.firefly.commons.ecm.core.services.DocumentPermissionService;
 import com.firefly.commons.ecm.interfaces.dtos.DocumentPermissionDTO;
 import com.firefly.commons.ecm.interfaces.enums.PermissionType;
 import com.firefly.commons.ecm.models.entities.DocumentPermission;
 import com.firefly.commons.ecm.models.repositories.DocumentPermissionRepository;
-import com.firefly.core.ecm.service.EcmPortProvider;
-import com.firefly.core.ecm.port.security.PermissionPort;
-import com.firefly.core.ecm.domain.enums.security.ResourceType;
-import com.firefly.core.ecm.domain.enums.security.PrincipalType;
+import org.fireflyframework.ecm.service.EcmPortProvider;
+import org.fireflyframework.ecm.port.security.PermissionPort;
+import org.fireflyframework.ecm.domain.enums.security.ResourceType;
+import org.fireflyframework.ecm.domain.enums.security.PrincipalType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,14 +78,14 @@ public class DocumentPermissionServiceImpl implements DocumentPermissionService 
                     // Update via ECM port if available
                     Mono<Void> portUpdate = ecmPortProvider.getPermissionPort()
                             .map(port -> {
-                                com.firefly.core.ecm.domain.model.security.Permission permission =
-                                        com.firefly.core.ecm.domain.model.security.Permission.builder()
+                                org.fireflyframework.ecm.domain.model.security.Permission permission =
+                                        org.fireflyframework.ecm.domain.model.security.Permission.builder()
                                                 .id(documentPermission.getId())
                                                 .resourceId(documentPermission.getDocumentId())
                                                 .resourceType(ResourceType.DOCUMENT)
                                                 .principalId(documentPermission.getPartyId())
                                                 .principalType(PrincipalType.USER)
-                                                .permissionType(com.firefly.core.ecm.domain.enums.security.PermissionType.valueOf(documentPermission.getPermissionType().name()))
+                                                .permissionType(org.fireflyframework.ecm.domain.enums.security.PermissionType.valueOf(documentPermission.getPermissionType().name()))
                                                 .granted(Boolean.TRUE.equals(documentPermission.getIsGranted()))
                                                 .expiresAt(documentPermission.getExpirationDate() != null ? documentPermission.getExpirationDate().toInstant(ZoneOffset.UTC) : null)
                                                 .build();
@@ -123,14 +123,14 @@ public class DocumentPermissionServiceImpl implements DocumentPermissionService 
     }
 
     private Mono<Void> grantViaPort(PermissionPort port, DocumentPermissionDTO dto) {
-        com.firefly.core.ecm.domain.model.security.Permission permission =
-                com.firefly.core.ecm.domain.model.security.Permission.builder()
+        org.fireflyframework.ecm.domain.model.security.Permission permission =
+                org.fireflyframework.ecm.domain.model.security.Permission.builder()
                         .id(UUID.randomUUID())
                         .resourceId(dto.getDocumentId())
                         .resourceType(ResourceType.DOCUMENT)
                         .principalId(dto.getPartyId())
                         .principalType(PrincipalType.USER)
-                        .permissionType(com.firefly.core.ecm.domain.enums.security.PermissionType.valueOf(dto.getPermissionType().name()))
+                        .permissionType(org.fireflyframework.ecm.domain.enums.security.PermissionType.valueOf(dto.getPermissionType().name()))
                         .granted(Boolean.TRUE.equals(dto.getIsGranted()))
                         .grantedAt(java.time.Instant.now())
                         .expiresAt(dto.getExpirationDate() != null ? dto.getExpirationDate().toInstant(ZoneOffset.UTC) : null)
@@ -160,7 +160,7 @@ public class DocumentPermissionServiceImpl implements DocumentPermissionService 
                         ResourceType.DOCUMENT,
                         principalId,
                         PrincipalType.USER,
-                        com.firefly.core.ecm.domain.enums.security.PermissionType.valueOf(permissionType.name())
+                        org.fireflyframework.ecm.domain.enums.security.PermissionType.valueOf(permissionType.name())
                 ))
                 .orElse(Mono.error(new RuntimeException("ECM PermissionPort is not configured")));
     }

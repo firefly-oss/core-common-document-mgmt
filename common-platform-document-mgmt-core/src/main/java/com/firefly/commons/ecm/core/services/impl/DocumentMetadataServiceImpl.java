@@ -17,16 +17,16 @@
 
 package com.firefly.commons.ecm.core.services.impl;
 
-import com.firefly.common.core.filters.FilterRequest;
-import com.firefly.common.core.filters.FilterUtils;
-import com.firefly.common.core.queries.PaginationResponse;
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.filters.FilterUtils;
+import org.fireflyframework.core.queries.PaginationResponse;
 
 import com.firefly.commons.ecm.core.mappers.DocumentMetadataMapper;
 import com.firefly.commons.ecm.core.services.DocumentMetadataService;
 import com.firefly.commons.ecm.interfaces.dtos.DocumentMetadataDTO;
 import com.firefly.commons.ecm.models.entities.DocumentMetadata;
 import com.firefly.commons.ecm.models.repositories.DocumentMetadataRepository;
-import com.firefly.core.ecm.service.EcmPortProvider;
+import org.fireflyframework.ecm.service.EcmPortProvider;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

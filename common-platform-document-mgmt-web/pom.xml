@@ -12,8 +12,6 @@
     <artifactId>common-platform-document-mgmt-web</artifactId>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -30,31 +28,28 @@
 
         <!-- ECM Providers: include multiple adapters; instantiate via properties -->
         <dependency>
-            <groupId>com.firefly</groupId>
-            <artifactId>lib-ecm-storage-aws</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.fireflyframework</groupId>
+            <artifactId>fireflyframework-ecm-storage-aws</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.firefly</groupId>
-            <artifactId>lib-ecm-storage-azure</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.fireflyframework</groupId>
+            <artifactId>fireflyframework-ecm-storage-azure</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.firefly</groupId>
-            <artifactId>lib-ecm-esignature-docusign</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.fireflyframework</groupId>
+            <artifactId>fireflyframework-ecm-esignature-docusign</artifactId>
+            <version>${fireflyframework.bom.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.firefly</groupId>
-            <artifactId>lib-ecm-esignature-adobe-sign</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.fireflyframework</groupId>
+            <artifactId>fireflyframework-ecm-esignature-adobe-sign</artifactId>
+            <version>${fireflyframework.bom.version}</version>
         </dependency>
 
         <!-- Common Libraries -->
         <dependency>
-            <groupId>com.firefly</groupId>
-            <artifactId>lib-common-web</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.fireflyframework</groupId>
+            <artifactId>fireflyframework-web</artifactId>
         </dependency>
 
         <!-- Spring Boot -->

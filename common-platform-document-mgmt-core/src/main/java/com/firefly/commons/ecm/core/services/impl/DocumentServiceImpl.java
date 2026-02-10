@@ -17,9 +17,9 @@
 
 package com.firefly.commons.ecm.core.services.impl;
 
-import com.firefly.common.core.filters.FilterRequest;
-import com.firefly.common.core.filters.FilterUtils;
-import com.firefly.common.core.queries.PaginationResponse;
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.filters.FilterUtils;
+import org.fireflyframework.core.queries.PaginationResponse;
 
 import com.firefly.commons.ecm.core.mappers.DocumentMapper;
 import com.firefly.commons.ecm.core.mappers.EcmDomainMapper;
@@ -27,9 +27,9 @@ import com.firefly.commons.ecm.core.services.DocumentService;
 import com.firefly.commons.ecm.interfaces.dtos.DocumentDTO;
 import com.firefly.commons.ecm.models.entities.Document;
 import com.firefly.commons.ecm.models.repositories.DocumentRepository;
-import com.firefly.core.ecm.service.EcmPortProvider;
-import com.firefly.core.ecm.port.document.DocumentContentPort;
-import com.firefly.core.ecm.port.document.DocumentVersionPort;
+import org.fireflyframework.ecm.service.EcmPortProvider;
+import org.fireflyframework.ecm.port.document.DocumentContentPort;
+import org.fireflyframework.ecm.port.document.DocumentVersionPort;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -284,8 +284,8 @@ public class DocumentServiceImpl implements DocumentService {
                                                     ? filePart.headers().getContentType().toString()
                                                     : "application/octet-stream";
                                             
-                                            com.firefly.core.ecm.domain.model.document.DocumentVersion ecmVersion = 
-                                                com.firefly.core.ecm.domain.model.document.DocumentVersion.builder()
+                                            org.fireflyframework.ecm.domain.model.document.DocumentVersion ecmVersion = 
+                                                org.fireflyframework.ecm.domain.model.document.DocumentVersion.builder()
                                                     .id(java.util.UUID.randomUUID())
                                                     .documentId(documentUuid)
                                                     .versionNumber(nextVersionNumber)
@@ -296,8 +296,8 @@ public class DocumentServiceImpl implements DocumentService {
                                                     .createdAt(java.time.Instant.now())
                                                     .current(true)
                                                     .majorVersion(false)
-                                                    .status(com.firefly.core.ecm.domain.enums.document.VersionStatus.CURRENT)
-                                                    .versionType(com.firefly.core.ecm.domain.enums.document.VersionType.MANUAL)
+                                                    .status(org.fireflyframework.ecm.domain.enums.document.VersionStatus.CURRENT)
+                                                    .versionType(org.fireflyframework.ecm.domain.enums.document.VersionType.MANUAL)
                                                     .changesSummary(versionComment)
                                                     .build();
                                             

@@ -22,9 +22,9 @@ import com.firefly.commons.ecm.interfaces.dtos.DocumentSignatureDTO;
 import com.firefly.commons.ecm.interfaces.dtos.DocumentDTO;
 import com.firefly.commons.ecm.interfaces.enums.DocumentStatus;
 import com.firefly.commons.ecm.models.entities.Document;
-import com.firefly.core.ecm.domain.model.esignature.SignatureRequest;
-import com.firefly.core.ecm.domain.enums.esignature.SignatureRequestStatus;
-import com.firefly.core.ecm.domain.enums.esignature.SignatureRequestType;
+import org.fireflyframework.ecm.domain.model.esignature.SignatureRequest;
+import org.fireflyframework.ecm.domain.enums.esignature.SignatureRequestStatus;
+import org.fireflyframework.ecm.domain.enums.esignature.SignatureRequestType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -136,7 +136,7 @@ public class EcmDomainMapper {
     /**
      * Map an ECM domain Document to our API DocumentDTO (read-only projection for search results).
      */
-    public DocumentDTO fromEcmDocument(com.firefly.core.ecm.domain.model.document.Document ecmDoc) {
+    public DocumentDTO fromEcmDocument(org.fireflyframework.ecm.domain.model.document.Document ecmDoc) {
         if (ecmDoc == null) return null;
         return DocumentDTO.builder()
                 .id(ecmDoc.getId())
@@ -157,10 +157,10 @@ public class EcmDomainMapper {
     /**
      * Map our local Document entity to ECM domain Document for indexing and interop.
      */
-    public com.firefly.core.ecm.domain.model.document.Document toEcmDocument(Document doc) {
+    public org.fireflyframework.ecm.domain.model.document.Document toEcmDocument(Document doc) {
         if (doc == null) return null;
-        com.firefly.core.ecm.domain.enums.document.DocumentStatus ecmStatus = mapStatus(doc.getDocumentStatus());
-        return com.firefly.core.ecm.domain.model.document.Document.builder()
+        org.fireflyframework.ecm.domain.enums.document.DocumentStatus ecmStatus = mapStatus(doc.getDocumentStatus());
+        return org.fireflyframework.ecm.domain.model.document.Document.builder()
                 .id(doc.getId())
                 .name(doc.getName() != null ? doc.getName() : doc.getFileName())
                 .description(doc.getDescription())
@@ -188,18 +188,18 @@ public class EcmDomainMapper {
                 .build();
     }
 
-    private com.firefly.core.ecm.domain.enums.document.DocumentStatus mapStatus(DocumentStatus status) {
-        if (status == null) return com.firefly.core.ecm.domain.enums.document.DocumentStatus.ACTIVE;
+    private org.fireflyframework.ecm.domain.enums.document.DocumentStatus mapStatus(DocumentStatus status) {
+        if (status == null) return org.fireflyframework.ecm.domain.enums.document.DocumentStatus.ACTIVE;
         return switch (status) {
-            case DRAFT -> com.firefly.core.ecm.domain.enums.document.DocumentStatus.CREATING;
-            case UNDER_REVIEW -> com.firefly.core.ecm.domain.enums.document.DocumentStatus.UNDER_REVIEW;
-            case APPROVED -> com.firefly.core.ecm.domain.enums.document.DocumentStatus.APPROVED;
-            case REJECTED -> com.firefly.core.ecm.domain.enums.document.DocumentStatus.REJECTED;
-            case PUBLISHED -> com.firefly.core.ecm.domain.enums.document.DocumentStatus.ACTIVE;
-            case ARCHIVED -> com.firefly.core.ecm.domain.enums.document.DocumentStatus.ARCHIVED;
-            case MARKED_FOR_DELETION, DELETED -> com.firefly.core.ecm.domain.enums.document.DocumentStatus.DELETED;
-            case LOCKED -> com.firefly.core.ecm.domain.enums.document.DocumentStatus.LOCKED;
-            case EXPIRED -> com.firefly.core.ecm.domain.enums.document.DocumentStatus.EXPIRED;
+            case DRAFT -> org.fireflyframework.ecm.domain.enums.document.DocumentStatus.CREATING;
+            case UNDER_REVIEW -> org.fireflyframework.ecm.domain.enums.document.DocumentStatus.UNDER_REVIEW;
+            case APPROVED -> org.fireflyframework.ecm.domain.enums.document.DocumentStatus.APPROVED;
+            case REJECTED -> org.fireflyframework.ecm.domain.enums.document.DocumentStatus.REJECTED;
+            case PUBLISHED -> org.fireflyframework.ecm.domain.enums.document.DocumentStatus.ACTIVE;
+            case ARCHIVED -> org.fireflyframework.ecm.domain.enums.document.DocumentStatus.ARCHIVED;
+            case MARKED_FOR_DELETION, DELETED -> org.fireflyframework.ecm.domain.enums.document.DocumentStatus.DELETED;
+            case LOCKED -> org.fireflyframework.ecm.domain.enums.document.DocumentStatus.LOCKED;
+            case EXPIRED -> org.fireflyframework.ecm.domain.enums.document.DocumentStatus.EXPIRED;
         };
     }
 

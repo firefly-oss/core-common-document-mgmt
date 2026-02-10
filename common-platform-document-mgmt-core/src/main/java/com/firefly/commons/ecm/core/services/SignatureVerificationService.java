@@ -17,8 +17,8 @@
 
 package com.firefly.commons.ecm.core.services;
 
-import com.firefly.common.core.filters.FilterRequest;
-import com.firefly.common.core.queries.PaginationResponse;
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.queries.PaginationResponse;
 import com.firefly.commons.ecm.interfaces.dtos.SignatureVerificationDTO;
 import com.firefly.commons.ecm.interfaces.enums.VerificationStatus;
 import reactor.core.publisher.Flux;

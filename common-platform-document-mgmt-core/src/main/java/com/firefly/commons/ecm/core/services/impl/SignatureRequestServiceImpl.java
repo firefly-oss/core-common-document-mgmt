@@ -17,16 +17,16 @@
 
 package com.firefly.commons.ecm.core.services.impl;
 
-import com.firefly.common.core.filters.FilterRequest;
-import com.firefly.common.core.filters.FilterUtils;
-import com.firefly.common.core.queries.PaginationResponse;
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.filters.FilterUtils;
+import org.fireflyframework.core.queries.PaginationResponse;
 import com.firefly.commons.ecm.core.mappers.SignatureRequestMapper;
 import com.firefly.commons.ecm.core.services.SignatureRequestService;
 import com.firefly.commons.ecm.interfaces.dtos.SignatureRequestDTO;
 import com.firefly.commons.ecm.interfaces.enums.SignatureStatus;
 import com.firefly.commons.ecm.models.entities.SignatureRequest;
 import com.firefly.commons.ecm.models.repositories.SignatureRequestRepository;
-import com.firefly.core.ecm.service.EcmPortProvider;
+import org.fireflyframework.ecm.service.EcmPortProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

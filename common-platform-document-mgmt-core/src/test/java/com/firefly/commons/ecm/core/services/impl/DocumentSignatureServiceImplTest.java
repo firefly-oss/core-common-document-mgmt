@@ -27,7 +27,7 @@ import com.firefly.commons.ecm.interfaces.enums.SignatureType;
 import com.firefly.commons.ecm.interfaces.enums.SignatureFormat;
 import com.firefly.commons.ecm.models.entities.DocumentSignature;
 import com.firefly.commons.ecm.models.repositories.DocumentSignatureRepository;
-import com.firefly.core.ecm.service.EcmPortProvider;
+import org.fireflyframework.ecm.service.EcmPortProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
