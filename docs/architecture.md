@@ -4,7 +4,7 @@ System architecture and design patterns for the Firefly OpenCore Platform Docume
 
 ## Overview
 
-The Document Management Microservice is built using modern reactive architecture principles with Spring Boot WebFlux. It follows a modular, multi-module Maven structure that provides clear separation of concerns and enables flexible deployment scenarios through lib-ecm-core integration.
+The Document Management Microservice is built using modern reactive architecture principles with Spring Boot WebFlux. It follows a modular, multi-module Maven structure that provides clear separation of concerns and enables flexible deployment scenarios through fireflyframework-ecm-core integration.
 
 ## System Architecture Diagram
 
@@ -69,7 +69,7 @@ graph TB
         end
     end
 
-    subgraph "lib-ecm-core Integration"
+    subgraph "fireflyframework-ecm-core Integration"
         PROVIDER[EcmPortProvider]
         CONTENT_PORT[DocumentContentPort]
         SIGNATURE_PORT[SignatureRequestPort]
@@ -226,7 +226,7 @@ common-platform-document-mgmt/
 
 #### Core Module (`-core`)
 - **Service Layer**: Business logic implementation
-- **ECM Integration**: lib-ecm-core port usage and graceful degradation
+- **ECM Integration**: fireflyframework-ecm-core port usage and graceful degradation
 - **MapStruct Mappers**: Entity-DTO mapping
 - **Configuration Classes**: Business logic configuration
 
@@ -255,7 +255,7 @@ common-platform-document-mgmt/
 | **Database Access** | R2DBC | 1.x | Reactive database connectivity |
 | **Migrations** | Flyway | 9.x | Database schema management |
 | **Build Tool** | Maven | 3.6+ | Build and dependency management |
-| **ECM Integration** | lib-ecm-core | Latest | ECM functionality |
+| **ECM Integration** | fireflyframework-ecm-core | Latest | ECM functionality |
 | **Mapping** | MapStruct | 1.5+ | Entity-DTO mapping |
 | **Documentation** | OpenAPI 3 | 3.x | API documentation |
 
@@ -263,7 +263,7 @@ common-platform-document-mgmt/
 
 ### Port-Based Architecture
 
-The microservice integrates with lib-ecm-core through a port-based architecture that provides clean separation between business logic and ECM provider implementations:
+The microservice integrates with fireflyframework-ecm-core through a port-based architecture that provides clean separation between business logic and ECM provider implementations:
 
 ```
 ┌─────────────────────────────────────┐
@@ -276,7 +276,7 @@ The microservice integrates with lib-ecm-core through a port-based architecture 
 │  SignatureRequestPort               │
 │  SignatureEnvelopePort              │
 ├─────────────────────────────────────┤
-│         lib-ecm-core                │
+│         fireflyframework-ecm-core                │
 ├─────────────────────────────────────┤
 │    ECM Adapters (Optional)          │
 │  ┌─────────┐ ┌─────────┐ ┌─────────┐│
@@ -475,7 +475,7 @@ public class EcmIntegrationProperties {
 ```
 
 #### ECM Provider Configuration (`firefly.ecm.*`)
-Handled by lib-ecm-core for ECM adapter configuration.
+Handled by fireflyframework-ecm-core for ECM adapter configuration.
 
 ## Deployment Architecture
 
@@ -487,12 +487,12 @@ Handled by lib-ecm-core for ECM adapter configuration.
    - Graceful error messages for ECM operations
 
 2. **Local Storage Deployment**
-   - lib-ecm-adapter-local configured
+   - fireflyframework-ecm-adapter-local configured
    - File system storage for documents
    - Local signature simulation
 
 3. **Cloud Storage Deployment**
-   - lib-ecm-adapter-s3 or lib-ecm-adapter-azure
+   - fireflyframework-ecm-adapter-s3 or fireflyframework-ecm-adapter-azure
    - Cloud-based document storage
    - Production-ready scalability
 

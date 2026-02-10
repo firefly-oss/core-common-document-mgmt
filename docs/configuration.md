@@ -7,7 +7,7 @@ Complete configuration reference for the Firefly OpenCore Platform Document Mana
 The microservice uses a two-tier configuration approach:
 
 1. **Business Logic Configuration** (`firefly.ecm.integration.*`) - Managed by the microservice
-2. **ECM Provider Configuration** (`firefly.ecm.*`) - Managed by lib-ecm-core
+2. **ECM Provider Configuration** (`firefly.ecm.*`) - Managed by fireflyframework-ecm-core
 
 This separation ensures clean architecture and prevents configuration conflicts.
 
@@ -206,7 +206,7 @@ firefly:
 ```xml
 <dependency>
     <groupId>com.firefly</groupId>
-    <artifactId>lib-ecm-adapter-s3</artifactId>
+    <artifactId>fireflyframework-ecm-adapter-s3</artifactId>
     <version>${firefly.version}</version>
 </dependency>
 ```
@@ -229,7 +229,7 @@ firefly:
 ```xml
 <dependency>
     <groupId>com.firefly</groupId>
-    <artifactId>lib-ecm-adapter-azure</artifactId>
+    <artifactId>fireflyframework-ecm-adapter-azure</artifactId>
     <version>${firefly.version}</version>
 </dependency>
 ```
@@ -251,7 +251,7 @@ firefly:
 ```xml
 <dependency>
     <groupId>com.firefly</groupId>
-    <artifactId>lib-ecm-adapter-local</artifactId>
+    <artifactId>fireflyframework-ecm-adapter-local</artifactId>
     <version>${firefly.version}</version>
 </dependency>
 ```
@@ -278,7 +278,7 @@ firefly:
 ```xml
 <dependency>
     <groupId>com.firefly</groupId>
-    <artifactId>lib-ecm-adapter-docusign</artifactId>
+    <artifactId>fireflyframework-ecm-adapter-docusign</artifactId>
     <version>${firefly.version}</version>
 </dependency>
 ```
@@ -305,7 +305,7 @@ firefly:
 ```xml
 <dependency>
     <groupId>com.firefly</groupId>
-    <artifactId>lib-ecm-adapter-adobe</artifactId>
+    <artifactId>fireflyframework-ecm-adapter-adobe</artifactId>
     <version>${firefly.version}</version>
 </dependency>
 ```
@@ -317,7 +317,7 @@ For development and CI environments without cloud providers, you can enable func
 ```yaml
 firefly:
   ecm:
-    # Enable in-memory search and permissions adapters (provided by lib-ecm-core)
+    # Enable in-memory search and permissions adapters (provided by fireflyframework-ecm-core)
     search:
       enabled: true   # Registers local-search adapter implementing DocumentSearchPort
     permissions:

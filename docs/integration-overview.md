@@ -1,10 +1,10 @@
 # Integration Overview
 
-Comprehensive guide to lib-ecm-core integration for the Firefly OpenCore Platform Document Management Microservice.
+Comprehensive guide to fireflyframework-ecm-core integration for the Firefly OpenCore Platform Document Management Microservice.
 
 ## Integration Philosophy
 
-The Document Management Microservice is designed around the principle of **graceful degradation** through lib-ecm-core integration. This means the service provides value at multiple levels:
+The Document Management Microservice is designed around the principle of **graceful degradation** through fireflyframework-ecm-core integration. This means the service provides value at multiple levels:
 
 1. **Standalone**: Document metadata management without content storage
 2. **Partial ECM**: Some ECM capabilities (e.g., storage only)
@@ -235,7 +235,7 @@ firefly:
         log-failures: true
 ```
 
-#### Provider Configuration (lib-ecm-core Responsibility)
+#### Provider Configuration (fireflyframework-ecm-core Responsibility)
 ```yaml
 firefly:
   ecm:
@@ -291,7 +291,7 @@ firefly:
 ```xml
 <dependency>
     <groupId>com.firefly</groupId>
-    <artifactId>lib-ecm-adapter-local</artifactId>
+    <artifactId>fireflyframework-ecm-adapter-local</artifactId>
     <version>${firefly.version}</version>
 </dependency>
 ```
@@ -317,7 +317,7 @@ firefly:
 ```xml
 <dependency>
     <groupId>com.firefly</groupId>
-    <artifactId>lib-ecm-adapter-s3</artifactId>
+    <artifactId>fireflyframework-ecm-adapter-s3</artifactId>
     <version>${firefly.version}</version>
 </dependency>
 ```
@@ -348,12 +348,12 @@ firefly:
 ```xml
 <dependency>
     <groupId>com.firefly</groupId>
-    <artifactId>lib-ecm-adapter-s3</artifactId>
+    <artifactId>fireflyframework-ecm-adapter-s3</artifactId>
     <version>${firefly.version}</version>
 </dependency>
 <dependency>
     <groupId>com.firefly</groupId>
-    <artifactId>lib-ecm-adapter-docusign</artifactId>
+    <artifactId>fireflyframework-ecm-adapter-docusign</artifactId>
     <version>${firefly.version}</version>
 </dependency>
 ```
@@ -444,14 +444,14 @@ public void validateEcmIntegration() {
     
     ecmPortProvider.getDocumentContentPort()
         .ifPresentOrElse(
-            port -> log.info("  ✓ DocumentContentPort available"),
-            () -> log.warn("  ✗ DocumentContentPort not available - content operations disabled")
+            port -> log.info("  DocumentContentPort available"),
+            () -> log.warn("  DocumentContentPort not available - content operations disabled")
         );
     
     ecmPortProvider.getSignatureRequestPort()
         .ifPresentOrElse(
-            port -> log.info("  ✓ SignatureRequestPort available"),
-            () -> log.warn("  ✗ SignatureRequestPort not available - signature operations disabled")
+            port -> log.info("  SignatureRequestPort available"),
+            () -> log.warn("  SignatureRequestPort not available - signature operations disabled")
         );
 }
 ```

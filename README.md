@@ -1,29 +1,29 @@
 # Firefly OpenCore Platform - Document Management Microservice
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Java](https://img.shields.io/badge/Java-21+-orange.svg)](https://openjdk.java.net/)
+[![Java](https://img.shields.io/badge/Java-25+-orange.svg)](https://openjdk.java.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green.svg)](https://spring.io/projects/spring-boot)
 [![Maven](https://img.shields.io/badge/Maven-3.6+-red.svg)](https://maven.apache.org/)
 
-A comprehensive, enterprise-grade document management microservice built on Spring Boot WebFlux with reactive programming principles. This microservice is a core component of the **Firefly OpenCore Platform** - an open-source core banking solution that provides advanced document lifecycle management, digital signature capabilities, and seamless integration with the Firefly lib-ecm-core framework for financial institutions.
+A comprehensive, enterprise-grade document management microservice built on Spring Boot WebFlux with reactive programming principles. This microservice is a core component of the **Firefly OpenCore Platform** - an open-source core banking solution that provides advanced document lifecycle management, digital signature capabilities, and seamless integration with the Firefly fireflyframework-ecm-core framework for financial institutions.
 
-## 🎯 Overview
+## Overview
 
-The Document Management Microservice provides comprehensive Enterprise Content Management (ECM) capabilities through seamless integration with the lib-ecm-core library. It offers flexible deployment options from standalone document metadata management to full-featured ECM with cloud storage and digital signatures.
+The Document Management Microservice provides comprehensive Enterprise Content Management (ECM) capabilities through seamless integration with the fireflyframework-ecm-core library. It offers flexible deployment options from standalone document metadata management to full-featured ECM with cloud storage and digital signatures.
 
 ### Key Features
 
-- **📄 Document Lifecycle Management**: Complete CRUD operations with metadata, versioning, and audit trails
-- **🔐 Digital Signatures**: Integration with e-signature providers (DocuSign, Adobe Sign) through lib-ecm-core
-- **☁️ Multi-Cloud Storage**: Support for S3, Azure Blob Storage, and local file systems via ECM adapters
-- **📁 Hierarchical Organization**: Folder structure with inheritance-based permissions
-- **🏷️ Flexible Tagging**: Document categorization and search capabilities
-- **⚡ Reactive Architecture**: Built with Spring WebFlux for high-performance, non-blocking operations
-- **🔧 Graceful Degradation**: Works with or without ECM adapters configured
+- **Document Lifecycle Management**: Complete CRUD operations with metadata, versioning, and audit trails
+- **Digital Signatures**: Integration with e-signature providers (DocuSign, Adobe Sign) through fireflyframework-ecm-core
+- **Multi-Cloud Storage**: Support for S3, Azure Blob Storage, and local file systems via ECM adapters
+- **Hierarchical Organization**: Folder structure with inheritance-based permissions
+- **Flexible Tagging**: Document categorization and search capabilities
+- **Reactive Architecture**: Built with Spring WebFlux for high-performance, non-blocking operations
+- **Graceful Degradation**: Works with or without ECM adapters configured
 
 ### ECM Integration Capabilities
 
-The microservice leverages **lib-ecm-core** to provide:
+The microservice leverages **fireflyframework-ecm-core** to provide:
 
 - **EcmPortProvider**: Central access to ECM functionality through port-based architecture
 - **DocumentContentPort**: Content storage and retrieval operations
@@ -31,11 +31,11 @@ The microservice leverages **lib-ecm-core** to provide:
 - **SignatureRequestPort**: Digital signature workflow integration
 - **SignatureEnvelopePort**: Signature envelope management
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-- **Java 21+** - OpenJDK or Oracle JDK
+- **Java 25+** - OpenJDK or Oracle JDK
 - **Maven 3.6+** - Build tool
 - **PostgreSQL 12+** - Database
 - **Docker** (optional) - For containerized deployment
@@ -97,7 +97,7 @@ mvn spring-boot:run -Dspring-boot.run.profiles=local
 
 The service will be available at `http://localhost:8080`
 
-## 🏗️ Architecture
+## Architecture
 
 The microservice follows a modular, multi-module Maven architecture:
 
@@ -294,13 +294,13 @@ erDiagram
 
 ### Technology Stack
 
-- **Runtime**: Java 21+
+- **Runtime**: Java 25+
 - **Framework**: Spring Boot 3.x with WebFlux
 - **Database**: PostgreSQL with R2DBC
 - **Build**: Maven 3.6+
-- **ECM Integration**: lib-ecm-core
+- **ECM Integration**: fireflyframework-ecm-core
 
-## 🔧 ECM Integration
+## ECM Integration
 
 ### Deployment Scenarios
 
@@ -314,7 +314,7 @@ erDiagram
 ```yaml
 firefly:
   ecm:
-    # Provider configuration (handled by lib-ecm-core)
+    # Provider configuration (handled by fireflyframework-ecm-core)
     document-content:
       provider: s3
       s3:
@@ -342,17 +342,17 @@ firefly:
         retention-days: 2555
 ```
 
-## 📚 Documentation
+## Documentation
 
 Comprehensive documentation is available in the [`docs/`](./docs/) directory:
 
 - **[API Reference](./docs/api-reference.md)** - Complete REST API documentation with verified endpoints
 - **[Architecture Guide](./docs/architecture.md)** - System architecture and ECM integration patterns
 - **[Configuration Guide](./docs/configuration.md)** - Configuration options for all deployment scenarios
-- **[Integration Overview](./docs/integration-overview.md)** - Complete lib-ecm-core integration guide
+- **[Integration Overview](./docs/integration-overview.md)** - Complete fireflyframework-ecm-core integration guide
 - **[Integration Examples](./docs/integration-examples.md)** - Practical code examples and use cases
 
-## 🛠️ Development
+## Development
 
 ### Running Tests
 
@@ -398,7 +398,7 @@ When running locally, API documentation is available at:
 - **Swagger UI**: http://localhost:8080/swagger-ui.html
 - **OpenAPI Spec**: http://localhost:8080/v3/api-docs
 
-## 🔍 Health Checks
+## Health Checks
 
 The service provides comprehensive health checks:
 
@@ -406,15 +406,15 @@ The service provides comprehensive health checks:
 - **Database**: `/actuator/health/db`
 - **ECM Integration**: `/actuator/health/ecm`
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions to the Firefly OpenCore Platform! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on how to submit pull requests, report issues, and contribute to the project.
 
-## 📄 License
+## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Support
+## Support
 
 - **Documentation**: [docs/](./docs/)
 - **Issues**: [GitHub Issues](https://github.com/firefly-oss/common-platform-document-mgmt/issues)
