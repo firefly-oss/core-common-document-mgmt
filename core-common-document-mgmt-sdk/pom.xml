@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.firefly</groupId>
-        <artifactId>common-platform-document-mgmt</artifactId>
+        <artifactId>core-common-document-mgmt</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>common-platform-document-mgmt-sdk</artifactId>
+    <artifactId>core-common-document-mgmt-sdk</artifactId>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,7 +27,7 @@
         <!-- Web module for OpenAPI spec -->
         <dependency>
             <groupId>com.firefly</groupId>
-            <artifactId>common-platform-document-mgmt-web</artifactId>
+            <artifactId>core-common-document-mgmt-web</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -99,7 +99,7 @@
                 <version>${openapi-generator.version}</version>
                 <executions>
                     <execution>
-                        <id>common-platform-document-mgmt-sdk</id>
+                        <id>core-common-document-mgmt-sdk</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>

@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: common-platform-document-mgmt
+  title: core-common-document-mgmt
   description: Enterprise Content Management Core Application
   contact:
     name: Firefly Software Solutions Inc

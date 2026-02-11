@@ -43,8 +43,8 @@ The microservice leverages **fireflyframework-ecm-core** to provide:
 ### 1. Clone and Build
 
 ```bash
-git clone https://github.com/firefly-oss/common-platform-document-mgmt.git
-cd common-platform-document-mgmt
+git clone https://github.com/firefly-oss/core-common-document-mgmt.git
+cd core-common-document-mgmt
 mvn clean install
 ```
 
@@ -91,7 +91,7 @@ firefly:
 ### 4. Run the Application
 
 ```bash
-cd common-platform-document-mgmt-web
+cd core-common-document-mgmt-web
 mvn spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
@@ -102,12 +102,12 @@ The service will be available at `http://localhost:8080`
 The microservice follows a modular, multi-module Maven architecture:
 
 ```
-common-platform-document-mgmt/
-├── common-platform-document-mgmt-web/          # REST API layer
-├── common-platform-document-mgmt-core/         # Business logic & services
-├── common-platform-document-mgmt-interfaces/   # DTOs & contracts
-├── common-platform-document-mgmt-models/       # JPA entities & repositories
-└── common-platform-document-mgmt-sdk/          # Client SDK
+core-common-document-mgmt/
+├── core-common-document-mgmt-web/          # REST API layer
+├── core-common-document-mgmt-core/         # Business logic & services
+├── core-common-document-mgmt-interfaces/   # DTOs & contracts
+├── core-common-document-mgmt-models/       # JPA entities & repositories
+└── core-common-document-mgmt-sdk/          # Client SDK
 ```
 
 ### Database Schema
@@ -417,7 +417,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ## Support
 
 - **Documentation**: [docs/](./docs/)
-- **Issues**: [GitHub Issues](https://github.com/firefly-oss/common-platform-document-mgmt/issues)
+- **Issues**: [GitHub Issues](https://github.com/firefly-oss/core-common-document-mgmt/issues)
 - **Community**: [Firefly Community](https://community.getfirefly.io)
 - **Email**: dev@getfirefly.io
 

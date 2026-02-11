@@ -11,14 +11,14 @@
     </parent>
 
     <groupId>com.firefly</groupId>
-    <artifactId>common-platform-document-mgmt</artifactId>
+    <artifactId>core-common-document-mgmt</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>common-platform-document-mgmt-core</module>
-        <module>common-platform-document-mgmt-interfaces</module>
-        <module>common-platform-document-mgmt-models</module>
-        <module>common-platform-document-mgmt-sdk</module>
-        <module>common-platform-document-mgmt-web</module>
+        <module>core-common-document-mgmt-core</module>
+        <module>core-common-document-mgmt-interfaces</module>
+        <module>core-common-document-mgmt-models</module>
+        <module>core-common-document-mgmt-sdk</module>
+        <module>core-common-document-mgmt-web</module>
     </modules>
 
     <properties>
@@ -27,9 +27,9 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <fireflyframework.bom.version>26.01.01</fireflyframework.bom.version>
-        <common-platform-document-mgmt.version>
+        <core-common-document-mgmt.version>
             1.0.0-SNAPSHOT
-        </common-platform-document-mgmt.version>
+        </core-common-document-mgmt.version>
     </properties>
 
     <dependencies>
@@ -52,27 +52,27 @@
             <!-- Internal modules -->
             <dependency>
                 <groupId>com.firefly</groupId>
-                <artifactId>common-platform-document-mgmt-interfaces</artifactId>
+                <artifactId>core-common-document-mgmt-interfaces</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.firefly</groupId>
-                <artifactId>common-platform-document-mgmt-models</artifactId>
+                <artifactId>core-common-document-mgmt-models</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.firefly</groupId>
-                <artifactId>common-platform-document-mgmt-core</artifactId>
+                <artifactId>core-common-document-mgmt-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.firefly</groupId>
-                <artifactId>common-platform-document-mgmt-web</artifactId>
+                <artifactId>core-common-document-mgmt-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.firefly</groupId>
-                <artifactId>common-platform-document-mgmt-sdk</artifactId>
+                <artifactId>core-common-document-mgmt-sdk</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

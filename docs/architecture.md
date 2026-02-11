@@ -18,7 +18,7 @@ graph TB
     end
 
     subgraph "Document Management Microservice"
-        subgraph "Web Module (common-platform-document-mgmt-web)"
+        subgraph "Web Module (core-common-document-mgmt-web)"
             CTRL_DOC[DocumentController]
             CTRL_SIG[DocumentSignatureController]
             CTRL_FOLDER[FolderController]
@@ -28,7 +28,7 @@ graph TB
             APP[EnterpriseContentManagementApplication]
         end
 
-        subgraph "Core Module (common-platform-document-mgmt-core)"
+        subgraph "Core Module (core-common-document-mgmt-core)"
             SVC_DOC[DocumentServiceImpl]
             SVC_SIG[DocumentSignatureServiceImpl]
             SVC_FOLDER[FolderServiceImpl]
@@ -40,7 +40,7 @@ graph TB
             CONFIG[Configuration Classes]
         end
 
-        subgraph "Interfaces Module (common-platform-document-mgmt-interfaces)"
+        subgraph "Interfaces Module (core-common-document-mgmt-interfaces)"
             DTO_DOC[DocumentDTO]
             DTO_SIG[DocumentSignatureDTO]
             DTO_FOLDER[FolderDTO]
@@ -49,7 +49,7 @@ graph TB
             IFACE[Service Interfaces]
         end
 
-        subgraph "Models Module (common-platform-document-mgmt-models)"
+        subgraph "Models Module (core-common-document-mgmt-models)"
             ENTITY_DOC[Document Entity]
             ENTITY_SIG[DocumentSignature Entity]
             ENTITY_FOLDER[Folder Entity]
@@ -62,7 +62,7 @@ graph TB
             REPO_TAG[TagRepository]
         end
 
-        subgraph "SDK Module (common-platform-document-mgmt-sdk)"
+        subgraph "SDK Module (core-common-document-mgmt-sdk)"
             CLIENT[DocumentManagementClient]
             BUILDER[Request Builders]
             SDK_CONFIG[SDK Configuration]
@@ -208,12 +208,12 @@ graph TB
 ## Module Structure
 
 ```
-common-platform-document-mgmt/
-├── common-platform-document-mgmt-web/          # REST API & Web Layer
-├── common-platform-document-mgmt-core/         # Business Logic & Services
-├── common-platform-document-mgmt-interfaces/   # DTOs & Service Contracts
-├── common-platform-document-mgmt-models/       # JPA Entities & Repositories
-└── common-platform-document-mgmt-sdk/          # Client SDK
+core-common-document-mgmt/
+├── core-common-document-mgmt-web/          # REST API & Web Layer
+├── core-common-document-mgmt-core/         # Business Logic & Services
+├── core-common-document-mgmt-interfaces/   # DTOs & Service Contracts
+├── core-common-document-mgmt-models/       # JPA Entities & Repositories
+└── core-common-document-mgmt-sdk/          # Client SDK
 ```
 
 ### Module Responsibilities
@@ -507,7 +507,7 @@ Handled by fireflyframework-ecm-core for ECM adapter configuration.
 FROM openjdk:21-jre-slim
 
 WORKDIR /app
-COPY target/common-platform-document-mgmt-web-*.jar app.jar
+COPY target/core-common-document-mgmt-web-*.jar app.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]

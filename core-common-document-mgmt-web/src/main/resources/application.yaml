@@ -1,6 +1,6 @@
 spring:
   application:
-    name: common-platform-document-mgmt
+    name: core-common-document-mgmt
     version: 1.0.0
     description: Enterprise Content Management Core Application
     team:
