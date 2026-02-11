@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test to verify proper separation between lib-ecm-core provider configuration
+ * Test to verify proper separation between library-ecm-core provider configuration
  * and microservice business logic configuration.
  */
 class EcmConfigurationSeparationTest {

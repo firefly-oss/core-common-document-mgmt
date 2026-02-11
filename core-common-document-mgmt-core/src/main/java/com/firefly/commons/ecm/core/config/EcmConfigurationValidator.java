@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Validates ECM configuration separation and provides warnings for potential conflicts.
- * Ensures proper separation between lib-ecm-core provider configuration and
+ * Ensures proper separation between library-ecm-core provider configuration and
  * microservice business logic configuration.
  */
 @Slf4j
@@ -74,27 +74,27 @@ public class EcmConfigurationValidator {
     }
 
     /**
-     * Validates that configuration is properly separated between lib-ecm-core and business logic.
+     * Validates that configuration is properly separated between library-ecm-core and business logic.
      */
     private void validateConfigurationSeparation(List<String> warnings, List<String> errors) {
-        // Check for direct conflicts with lib-ecm-core EcmProperties
+        // Check for direct conflicts with library-ecm-core EcmProperties
         String[] directConflicts = {
-            "firefly.ecm.integration.connection.retry-attempts", // Conflicts with lib-ecm-core connection.retryAttempts
-            "firefly.ecm.integration.defaults.max-file-size-mb", // Conflicts with lib-ecm-core defaults.maxFileSizeMb
-            "firefly.ecm.integration.defaults.allowed-extensions", // Conflicts with lib-ecm-core defaults.allowedExtensions
-            "firefly.ecm.integration.defaults.default-folder", // Conflicts with lib-ecm-core defaults.defaultFolder
-            "firefly.ecm.integration.performance.batch-size", // Conflicts with lib-ecm-core performance.batchSize
-            "firefly.ecm.integration.performance.cache-enabled" // Conflicts with lib-ecm-core performance.cacheEnabled
+            "firefly.ecm.integration.connection.retry-attempts", // Conflicts with library-ecm-core connection.retryAttempts
+            "firefly.ecm.integration.defaults.max-file-size-mb", // Conflicts with library-ecm-core defaults.maxFileSizeMb
+            "firefly.ecm.integration.defaults.allowed-extensions", // Conflicts with library-ecm-core defaults.allowedExtensions
+            "firefly.ecm.integration.defaults.default-folder", // Conflicts with library-ecm-core defaults.defaultFolder
+            "firefly.ecm.integration.performance.batch-size", // Conflicts with library-ecm-core performance.batchSize
+            "firefly.ecm.integration.performance.cache-enabled" // Conflicts with library-ecm-core performance.cacheEnabled
         };
 
         for (String conflictProperty : directConflicts) {
             if (environment.containsProperty(conflictProperty)) {
-                errors.add("Property '" + conflictProperty + "' conflicts with lib-ecm-core EcmProperties. " +
-                          "Remove this property as it's handled by lib-ecm-core under 'firefly.ecm' prefix");
+                errors.add("Property '" + conflictProperty + "' conflicts with library-ecm-core EcmProperties. " +
+                          "Remove this property as it's handled by library-ecm-core under 'firefly.ecm' prefix");
             }
         }
 
-        // Check for business logic properties accidentally placed under lib-ecm-core prefix
+        // Check for business logic properties accidentally placed under library-ecm-core prefix
         String[] misplacedBusinessProperties = {
             "firefly.ecm.signature.custom-message",
             "firefly.ecm.signature.language",
@@ -106,7 +106,7 @@ public class EcmConfigurationValidator {
         for (String misplacedProperty : misplacedBusinessProperties) {
             if (environment.containsProperty(misplacedProperty)) {
                 warnings.add("Business logic property '" + misplacedProperty + "' should be under " +
-                           "'firefly.ecm.integration' prefix to separate from lib-ecm-core provider configuration");
+                           "'firefly.ecm.integration' prefix to separate from library-ecm-core provider configuration");
             }
         }
 
@@ -116,16 +116,16 @@ public class EcmConfigurationValidator {
                         ecmIntegrationProperties.getSignature().getCustomMessage() + "'");
         }
 
-        // Check for proper lib-ecm-core configuration
+        // Check for proper library-ecm-core configuration
         boolean hasEcmEnabled = environment.containsProperty("firefly.ecm.enabled");
         boolean hasAdapterType = environment.containsProperty("firefly.ecm.adapter-type");
 
         if (!hasEcmEnabled) {
-            warnings.add("lib-ecm-core 'firefly.ecm.enabled' not configured. ECM functionality may be disabled.");
+            warnings.add("library-ecm-core 'firefly.ecm.enabled' not configured. ECM functionality may be disabled.");
         }
 
         if (!hasAdapterType) {
-            warnings.add("lib-ecm-core 'firefly.ecm.adapter-type' not configured. No ECM adapter will be selected.");
+            warnings.add("library-ecm-core 'firefly.ecm.adapter-type' not configured. No ECM adapter will be selected.");
         }
     }
 
@@ -156,7 +156,7 @@ public class EcmConfigurationValidator {
             errors.add("Document retention days must be positive, got: " + document.getRetentionDays());
         }
 
-        // Validate error handling (retry logic is handled by lib-ecm-core)
+        // Validate error handling (retry logic is handled by library-ecm-core)
         if (errorHandling.getFailFast() == null) {
             warnings.add("Error handling fail-fast setting not configured. Using default: " +
                         errorHandling.getFailFast());

@@ -27,11 +27,11 @@ import java.time.Duration;
  * Configuration properties for ECM integration defaults and business logic behavior.
  *
  * This class provides default values for business logic when not specified in API requests.
- * It is separate from lib-ecm-core EcmProperties which handles ECM provider settings.
+ * It is separate from library-ecm-core EcmProperties which handles ECM provider settings.
  *
  * SEPARATION OF CONCERNS:
  *
- * lib-ecm-core EcmProperties (firefly.ecm.*):
+ * library-ecm-core EcmProperties (firefly.ecm.*):
  * - Provider configuration (adapterType, connection settings)
  * - Technical defaults (maxFileSizeMb, allowedExtensions, connectTimeout)
  * - Feature toggles (documentManagement, esignature, versioning)
@@ -138,7 +138,7 @@ public class EcmIntegrationProperties {
     public static class ErrorHandling {
         /**
          * Whether to fail fast on ECM operation errors at the business logic level.
-         * Note: Technical retry logic is handled by lib-ecm-core connection settings.
+         * Note: Technical retry logic is handled by library-ecm-core connection settings.
          */
         private Boolean failFast = false;
 

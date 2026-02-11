@@ -70,9 +70,9 @@ logging:
 firefly:
   # ECM Integration Configuration - Microservice-specific business logic defaults
   # These properties provide default values for business logic when not specified in API requests
-  # Separate from lib-ecm-core provider configuration (firefly.ecm.document-content, firefly.ecm.signature)
+  # Separate from library-ecm-core provider configuration (firefly.ecm.document-content, firefly.ecm.signature)
   ecm:
-    # Adapter selection (lib-ecm): choose which provider to instantiate at runtime
+    # Adapter selection (library-ecm): choose which provider to instantiate at runtime
     enabled: ${ECM_ENABLED:true}
     adapter-type: ${ECM_ADAPTER_TYPE:}
 
@@ -85,7 +85,7 @@ firefly:
 
     # Provider-specific configuration
     adapter:
-      # AWS S3 (lib-ecm-storage-aws)
+      # AWS S3 (library-ecm-storage-aws)
       s3:
         bucket-name: ${S3_BUCKET_NAME:}
         region: ${AWS_REGION:}
@@ -105,7 +105,7 @@ firefly:
         multipart-threshold: ${S3_MULTIPART_THRESHOLD:5242880}
         multipart-part-size: ${S3_MULTIPART_PART_SIZE:5242880}
 
-      # Azure Blob (lib-ecm-storage-azure)
+      # Azure Blob (library-ecm-storage-azure)
       azure-blob:
         account-name: ${AZURE_ACCOUNT_NAME:}
         container-name: ${AZURE_CONTAINER_NAME:}
@@ -126,7 +126,7 @@ firefly:
         enable-soft-delete: ${AZURE_ENABLE_SOFT_DELETE:true}
         soft-delete-retention-days: ${AZURE_SOFT_DELETE_RETENTION_DAYS:7}
 
-      # DocuSign (lib-ecm-esignature-docusign)
+      # DocuSign (library-ecm-esignature-docusign)
       docusign:
         integration-key: ${DOCUSIGN_INTEGRATION_KEY:}
         user-id: ${DOCUSIGN_USER_ID:}
@@ -134,7 +134,7 @@ firefly:
         private-key: ${DOCUSIGN_PRIVATE_KEY:}
         sandbox-mode: ${DOCUSIGN_SANDBOX:false}
 
-      # Adobe Sign (lib-ecm-esignature-adobe-sign)
+      # Adobe Sign (library-ecm-esignature-adobe-sign)
       adobe-sign:
         client-id: ${ADOBE_SIGN_CLIENT_ID:}
         client-secret: ${ADOBE_SIGN_CLIENT_SECRET:}

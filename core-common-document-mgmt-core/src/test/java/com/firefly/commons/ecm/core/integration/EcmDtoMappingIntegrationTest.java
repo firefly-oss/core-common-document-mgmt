@@ -61,7 +61,7 @@ class EcmDtoMappingIntegrationTest {
         ecmProperties.getDocument().setSecurityLevel("CONFIDENTIAL");
         ecmProperties.getDocument().setRetentionDays(1825);
 
-        // Set up error handling without retry (handled by lib-ecm-core)
+        // Set up error handling without retry (handled by library-ecm-core)
         ecmProperties.getErrorHandling().setFailFast(true);
         ecmProperties.getErrorHandling().setIncludeDetailedErrors(true);
 

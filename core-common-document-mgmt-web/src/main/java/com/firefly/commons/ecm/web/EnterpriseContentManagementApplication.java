@@ -31,7 +31,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 
 @SpringBootApplication(
         scanBasePackages = {
-                "org.fireflyframework.ecm",      // Scan lib-ecm-core components including EcmPortProvider
+                "org.fireflyframework.ecm",      // Scan library-ecm-core components including EcmPortProvider
                 "com.firefly.commons.ecm",
                 "org.fireflyframework.web"     // Scan common web library configurations
         }

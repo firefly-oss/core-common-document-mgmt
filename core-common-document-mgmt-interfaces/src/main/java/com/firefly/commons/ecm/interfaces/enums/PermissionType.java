@@ -19,7 +19,7 @@ package com.firefly.commons.ecm.interfaces.enums;
 
 /**
  * Enum representing different permission types for documents in the Enterprise Content Management system.
- * Aligned with lib-ecm PermissionType enum.
+ * Aligned with library-ecm PermissionType enum.
  */
 public enum PermissionType {
     /**
