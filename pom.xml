@@ -12,6 +12,7 @@
     </parent>
 
     <artifactId>core-common-document-mgmt</artifactId>
+    <name>core-common-document-mgmt</name>
     <packaging>pom</packaging>
     <modules>
         <module>core-common-document-mgmt-core</module>

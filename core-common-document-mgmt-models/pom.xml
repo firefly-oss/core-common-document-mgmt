@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>core-common-document-mgmt-models</artifactId>
+    <name>core-common-document-mgmt-models</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
