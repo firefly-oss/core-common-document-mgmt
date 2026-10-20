@@ -1,0 +1,111 @@
+/*
+ * Copyright 2025 Firefly Software Foundation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+package io.fireflysoftware.commons.ecm.core.services;
+
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.queries.PaginationResponse;
+import io.fireflysoftware.commons.ecm.interfaces.dtos.SignatureVerificationDTO;
+import io.fireflysoftware.commons.ecm.interfaces.enums.VerificationStatus;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import java.util.UUID;
+/**
+ * Service interface for managing SignatureVerification entities in the Enterprise Content Management system.
+ */
+public interface SignatureVerificationService {
+
+    /**
+     * Get a signature verification by its ID.
+     *
+     * @param id The signature verification ID
+     * @return A Mono emitting the signature verification if found, or empty if not found
+     */
+    Mono<SignatureVerificationDTO> getById(UUID id);
+
+    /**
+     * Filter signature verifications based on the provided filter request.
+     *
+     * @param filterRequest The filter request containing filtering and pagination parameters
+     * @return A Mono emitting a pagination response with the filtered signature verifications
+     */
+    Mono<PaginationResponse<SignatureVerificationDTO>> filter(FilterRequest<SignatureVerificationDTO> filterRequest);
+
+    /**
+     * Update an existing signature verification.
+     *
+     * @param signatureVerification The signature verification to update
+     * @return A Mono emitting the updated signature verification
+     */
+    Mono<SignatureVerificationDTO> update(SignatureVerificationDTO signatureVerification);
+
+    /**
+     * Create a new signature verification.
+     *
+     * @param signatureVerification The signature verification to create
+     * @return A Mono emitting the created signature verification
+     */
+    Mono<SignatureVerificationDTO> create(SignatureVerificationDTO signatureVerification);
+
+    /**
+     * Delete a signature verification by its ID.
+     *
+     * @param id The ID of the signature verification to delete
+     * @return A Mono completing when the signature verification is deleted
+     */
+    Mono<Void> delete(UUID id);
+
+    /**
+     * Get all verifications for a document signature.
+     *
+     * @param documentSignatureId The document signature ID
+     * @return A Flux emitting all verifications for the document signature
+     */
+    Flux<SignatureVerificationDTO> getByDocumentSignatureId(UUID documentSignatureId);
+
+    /**
+     * Get the latest verification for a document signature.
+     *
+     * @param documentSignatureId The document signature ID
+     * @return A Mono emitting the latest verification for the document signature
+     */
+    Mono<SignatureVerificationDTO> getLatestVerification(UUID documentSignatureId);
+
+    /**
+     * Get all verifications with a specific status.
+     *
+     * @param verificationStatus The verification status
+     * @return A Flux emitting all verifications with the specified status
+     */
+    Flux<SignatureVerificationDTO> getByVerificationStatus(VerificationStatus verificationStatus);
+
+    /**
+     * Verify a document signature.
+     *
+     * @param documentSignatureId The document signature ID
+     * @return A Mono emitting the verification result
+     */
+    Mono<SignatureVerificationDTO> verifySignature(UUID documentSignatureId);
+
+    /**
+     * Verify all signatures for a document.
+     *
+     * @param documentId The document ID
+     * @return A Flux emitting the verification results for all signatures
+     */
+    Flux<SignatureVerificationDTO> verifyAllSignaturesForDocument(UUID documentId);
+}

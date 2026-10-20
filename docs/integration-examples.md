@@ -374,8 +374,8 @@ firefly:
 
 logging:
   level:
-    com.firefly.commons.ecm: DEBUG
-    com.firefly.core.ecm: DEBUG
+    io.fireflysoftware.commons.ecm: DEBUG
+    io.fireflysoftware.core.ecm: DEBUG
 ```
 
 ### Production Configuration

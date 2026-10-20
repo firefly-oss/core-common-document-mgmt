@@ -290,7 +290,7 @@ firefly:
 **Required Dependency**:
 ```xml
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.fireflysoftware</groupId>
     <artifactId>fireflyframework-ecm-adapter-local</artifactId>
     <version>${firefly.version}</version>
 </dependency>
@@ -316,7 +316,7 @@ firefly:
 **Required Dependency**:
 ```xml
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.fireflysoftware</groupId>
     <artifactId>fireflyframework-ecm-adapter-s3</artifactId>
     <version>${firefly.version}</version>
 </dependency>
@@ -347,12 +347,12 @@ firefly:
 **Required Dependencies**:
 ```xml
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.fireflysoftware</groupId>
     <artifactId>fireflyframework-ecm-adapter-s3</artifactId>
     <version>${firefly.version}</version>
 </dependency>
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.fireflysoftware</groupId>
     <artifactId>fireflyframework-ecm-adapter-docusign</artifactId>
     <version>${firefly.version}</version>
 </dependency>

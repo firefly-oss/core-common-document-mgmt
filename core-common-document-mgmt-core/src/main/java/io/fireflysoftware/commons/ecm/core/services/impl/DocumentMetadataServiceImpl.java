@@ -1,0 +1,117 @@
+/*
+ * Copyright 2025 Firefly Software Foundation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+package io.fireflysoftware.commons.ecm.core.services.impl;
+
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.filters.FilterUtils;
+import org.fireflyframework.core.queries.PaginationResponse;
+
+import io.fireflysoftware.commons.ecm.core.mappers.DocumentMetadataMapper;
+import io.fireflysoftware.commons.ecm.core.services.DocumentMetadataService;
+import io.fireflysoftware.commons.ecm.interfaces.dtos.DocumentMetadataDTO;
+import io.fireflysoftware.commons.ecm.models.entities.DocumentMetadata;
+import io.fireflysoftware.commons.ecm.models.repositories.DocumentMetadataRepository;
+import org.fireflyframework.ecm.service.EcmPortProvider;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Mono;
+import java.util.UUID;
+/**
+ * Implementation of the DocumentMetadataService interface.
+ * Provides comprehensive document metadata management with ECM port integration.
+ */
+@Service
+@Transactional
+@Slf4j
+public class DocumentMetadataServiceImpl implements DocumentMetadataService {
+
+    @Autowired
+    private DocumentMetadataRepository repository;
+
+    @Autowired
+    private DocumentMetadataMapper mapper;
+
+    @Autowired
+    private EcmPortProvider ecmPortProvider;
+
+    @Override
+    public Mono<DocumentMetadataDTO> getById(UUID id) {
+        return repository.findById(id)
+                .map(mapper::toDTO);
+    }
+
+    @Override
+    public Mono<PaginationResponse<DocumentMetadataDTO>> filter(FilterRequest<DocumentMetadataDTO> filterRequest) {
+        return FilterUtils.createFilter(
+                DocumentMetadata.class,
+                mapper::toDTO
+        ).filter(filterRequest);
+    }
+
+    @Override
+    public Mono<DocumentMetadataDTO> update(DocumentMetadataDTO documentMetadata) {
+        if (documentMetadata.getId() == null) {
+            return Mono.error(new IllegalArgumentException("ID cannot be null for update operation"));
+        }
+
+        return repository.findById(documentMetadata.getId())
+                .switchIfEmpty(Mono.error(new RuntimeException("Document metadata not found with ID: " + documentMetadata.getId())))
+                .flatMap(existingEntity -> {
+                    DocumentMetadata entityToUpdate = mapper.toEntity(documentMetadata);
+                    // Preserve created info
+                    entityToUpdate.setCreatedAt(existingEntity.getCreatedAt());
+                    entityToUpdate.setCreatedBy(existingEntity.getCreatedBy());
+                    return repository.save(entityToUpdate);
+                })
+                .map(mapper::toDTO);
+    }
+
+    @Override
+    public Mono<DocumentMetadataDTO> create(DocumentMetadataDTO documentMetadata) {
+        log.debug("Creating document metadata for document ID: {}", documentMetadata.getDocumentId());
+
+        // Ensure ID is null for create operation
+        documentMetadata.setId(null);
+
+        DocumentMetadata entity = mapper.toEntity(documentMetadata);
+        return repository.save(entity)
+                .doOnSuccess(savedEntity -> log.info("Document metadata created successfully with ID: {}", savedEntity.getId()))
+                .doOnError(error -> log.error("Failed to create document metadata: {}", error.getMessage(), error))
+                // Note: ECM metadata integration would be implemented here if needed
+                .map(mapper::toDTO);
+    }
+
+    @Override
+    public Mono<Void> delete(UUID id) {
+        log.debug("Deleting document metadata with ID: {}", id);
+
+        return repository.findById(id)
+                .switchIfEmpty(Mono.error(new RuntimeException("Document metadata not found with ID: " + id)))
+                .flatMap(entity -> {
+                    log.info("Deleting document metadata: {} for document ID: {}", entity.getKey(), entity.getDocumentId());
+
+                    // Note: ECM metadata removal would be implemented here if needed
+                    return repository.delete(entity)
+                            .doOnSuccess(result -> log.info("Document metadata deleted successfully: {}", id))
+                            .doOnError(error -> log.error("Failed to delete document metadata {}: {}", id, error.getMessage(), error));
+                });
+    }
+}

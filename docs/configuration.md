@@ -205,7 +205,7 @@ firefly:
 **Required Dependencies:**
 ```xml
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.fireflysoftware</groupId>
     <artifactId>fireflyframework-ecm-adapter-s3</artifactId>
     <version>${firefly.version}</version>
 </dependency>
@@ -228,7 +228,7 @@ firefly:
 **Required Dependencies:**
 ```xml
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.fireflysoftware</groupId>
     <artifactId>fireflyframework-ecm-adapter-azure</artifactId>
     <version>${firefly.version}</version>
 </dependency>
@@ -250,7 +250,7 @@ firefly:
 **Required Dependencies:**
 ```xml
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.fireflysoftware</groupId>
     <artifactId>fireflyframework-ecm-adapter-local</artifactId>
     <version>${firefly.version}</version>
 </dependency>
@@ -277,7 +277,7 @@ firefly:
 **Required Dependencies:**
 ```xml
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.fireflysoftware</groupId>
     <artifactId>fireflyframework-ecm-adapter-docusign</artifactId>
     <version>${firefly.version}</version>
 </dependency>
@@ -304,7 +304,7 @@ firefly:
 **Required Dependencies:**
 ```xml
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.fireflysoftware</groupId>
     <artifactId>fireflyframework-ecm-adapter-adobe</artifactId>
     <version>${firefly.version}</version>
 </dependency>
@@ -358,8 +358,8 @@ server:
 ```yaml
 logging:
   level:
-    com.firefly.commons.ecm: INFO
-    com.firefly.core.ecm: INFO
+    io.fireflysoftware.commons.ecm: INFO
+    io.fireflysoftware.core.ecm: INFO
     org.springframework.r2dbc: WARN
     org.springframework.web.reactive: INFO
     org.flywaydb: INFO
@@ -435,7 +435,7 @@ firefly:
 
 logging:
   level:
-    com.firefly: DEBUG
+    io.fireflysoftware: DEBUG
     org.springframework.r2dbc: DEBUG
 ```
 
@@ -482,8 +482,8 @@ server:
 
 logging:
   level:
-    com.firefly.commons.ecm: INFO
-    com.firefly.core.ecm: WARN
+    io.fireflysoftware.commons.ecm: INFO
+    io.fireflysoftware.core.ecm: WARN
 ```
 
 ### Docker Environment
@@ -593,5 +593,5 @@ logging:
   level:
     org.springframework.boot.context.config: DEBUG
     org.springframework.boot.autoconfigure: DEBUG
-    com.firefly.core.ecm: DEBUG
+    io.fireflysoftware.core.ecm: DEBUG
 ```
