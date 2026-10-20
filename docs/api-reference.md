@@ -5,7 +5,7 @@ Complete REST API documentation for the Firefly OpenCore Platform Document Manag
 ## Base URLs
 
 - **Local Development**: `http://localhost:8080`
-- **Production**: `https://api.getfirefly.io/ecm`
+- **Production**: `https://api.fireflysoftware.io/ecm`
 
 ## Authentication
 
@@ -45,9 +45,9 @@ GET /api/v1/documents
       "isLocked": false,
       "tenantId": "tenant-123",
       "createdAt": "2023-01-01T00:00:00",
-      "createdBy": "user@getfirefly.io",
+      "createdBy": "user@fireflysoftware.io",
       "updatedAt": "2023-01-01T00:00:00",
-      "updatedBy": "user@getfirefly.io",
+      "updatedBy": "user@fireflysoftware.io",
       "version": 1
     }
   ],
@@ -85,9 +85,9 @@ GET /api/v1/documents/{id}
   "isLocked": false,
   "tenantId": "tenant-123",
   "createdAt": "2023-01-01T00:00:00",
-  "createdBy": "user@getfirefly.io",
+  "createdBy": "user@fireflysoftware.io",
   "updatedAt": "2023-01-01T00:00:00",
-  "updatedBy": "user@getfirefly.io",
+  "updatedBy": "user@fireflysoftware.io",
   "version": 1
 }
 ```
@@ -125,7 +125,7 @@ POST /api/v1/documents
   "folderId": "550e8400-e29b-41d4-a716-446655440001",
   "tenantId": "tenant-123",
   "createdAt": "2023-01-01T00:00:00",
-  "createdBy": "user@getfirefly.io",
+  "createdBy": "user@fireflysoftware.io",
   "version": 1
 }
 ```
@@ -179,7 +179,7 @@ Content-Type: multipart/form-data
   "storagePath": "/documents/550e8400-e29b-41d4-a716-446655440000/contract.pdf",
   "storageType": "S3",
   "updatedAt": "2023-01-01T00:00:00",
-  "updatedBy": "user@getfirefly.io"
+  "updatedBy": "user@fireflysoftware.io"
 }
 ```
 
@@ -235,7 +235,7 @@ Content-Type: multipart/form-data
   "fileSize": 1024000,
   "version": 2,
   "updatedAt": "2023-01-01T00:00:00",
-  "updatedBy": "user@getfirefly.io"
+  "updatedBy": "user@fireflysoftware.io"
 }
 ```
 
@@ -278,7 +278,7 @@ GET /api/v1/document-signatures
       "signatureProviderId": "550e8400-e29b-41d4-a716-446655440004",
       "signerPartyId": "550e8400-e29b-41d4-a716-446655440005",
       "signerName": "John Doe",
-      "signerEmail": "signer@getfirefly.io",
+      "signerEmail": "signer@fireflysoftware.io",
       "signatureType": "ELECTRONIC",
       "signatureFormat": "PKCS7",
       "signatureStatus": "PENDING",
@@ -292,7 +292,7 @@ GET /api/v1/document-signatures
       "expirationDate": "2023-01-31T23:59:59",
       "tenantId": "tenant-123",
       "createdAt": "2023-01-01T00:00:00",
-      "createdBy": "user@getfirefly.io",
+      "createdBy": "user@fireflysoftware.io",
       "version": 1
     }
   ]
@@ -313,7 +313,7 @@ POST /api/v1/document-signatures
   "signatureProviderId": "550e8400-e29b-41d4-a716-446655440004",
   "signerPartyId": "550e8400-e29b-41d4-a716-446655440005",
   "signerName": "John Doe",
-  "signerEmail": "signer@getfirefly.io",
+  "signerEmail": "signer@fireflysoftware.io",
   "signatureType": "ELECTRONIC",
   "signatureFormat": "PKCS7",
   "customMessage": "Please sign this important document",
@@ -333,7 +333,7 @@ POST /api/v1/document-signatures
 {
   "id": "550e8400-e29b-41d4-a716-446655440002",
   "documentId": "550e8400-e29b-41d4-a716-446655440000",
-  "signerEmail": "signer@getfirefly.io",
+  "signerEmail": "signer@fireflysoftware.io",
   "signatureType": "ELECTRONIC",
   "signatureStatus": "SENT",
   "externalRequestId": "docusign-envelope-123",
@@ -347,7 +347,7 @@ POST /api/v1/document-signatures
 {
   "id": "550e8400-e29b-41d4-a716-446655440002",
   "documentId": "550e8400-e29b-41d4-a716-446655440000",
-  "signerEmail": "signer@getfirefly.io",
+  "signerEmail": "signer@fireflysoftware.io",
   "signatureType": "ELECTRONIC",
   "signatureStatus": "PENDING",
   "createdAt": "2023-01-01T00:00:00",
@@ -370,7 +370,7 @@ GET /api/v1/document-signatures/{id}
   "signatureProviderId": "550e8400-e29b-41d4-a716-446655440004",
   "signerPartyId": "550e8400-e29b-41d4-a716-446655440005",
   "signerName": "John Doe",
-  "signerEmail": "signer@getfirefly.io",
+  "signerEmail": "signer@fireflysoftware.io",
   "signatureType": "ELECTRONIC",
   "signatureFormat": "PKCS7",
   "signatureStatus": "COMPLETED",

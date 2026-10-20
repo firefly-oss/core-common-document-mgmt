@@ -4,10 +4,10 @@ info:
   description: Enterprise Content Management Core Application
   contact:
     name: Firefly Software Foundation
-    email: dev@getfirefly.io
+    email: dev@fireflysoftware.io
   version: 1.0.0
 servers:
-  - url: https://api.getfirefly.io/ecm
+  - url: https://api.fireflysoftware.io/ecm
     description: Production Environment
   - url: /
     description: Local Development Environment

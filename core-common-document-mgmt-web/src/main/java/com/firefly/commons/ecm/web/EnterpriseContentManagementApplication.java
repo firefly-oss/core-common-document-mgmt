@@ -54,7 +54,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
         ),
         servers = {
                 @Server(
-                        url = "https://api.getfirefly.io/ecm",
+                        url = "https://api.fireflysoftware.io/ecm",
                         description = "Production Environment"
                 ),
                 @Server(

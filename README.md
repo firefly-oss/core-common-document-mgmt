@@ -418,10 +418,10 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 - **Documentation**: [docs/](./docs/)
 - **Issues**: [GitHub Issues](https://github.com/firefly-oss/core-common-document-mgmt/issues)
-- **Community**: [Firefly Community](https://community.getfirefly.io)
-- **Email**: dev@getfirefly.io
+- **Community**: [Firefly Community](https://community.fireflysoftware.io)
+- **Email**: dev@fireflysoftware.io
 
 ---
 
 **Firefly OpenCore Platform** - Building the future of open-source core banking solutions.  
-Visit us at [getfirefly.io](https://getfirefly.io) to learn more about our comprehensive financial technology platform.
+Visit us at [fireflysoftware.io](https://fireflysoftware.io) to learn more about our comprehensive financial technology platform.

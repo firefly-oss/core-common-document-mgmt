@@ -168,8 +168,8 @@ firefly:
   security:
     cors:
       allowed-origins:
-        - "https://app.getfirefly.io"
-        - "https://admin.getfirefly.io"
+        - "https://app.fireflysoftware.io"
+        - "https://admin.fireflysoftware.io"
         - "http://localhost:3000"        # Development frontend
       allowed-methods:
         - GET

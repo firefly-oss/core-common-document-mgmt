@@ -103,7 +103,7 @@ if (signaturePort.isPresent()) {
         .createSignatureRequest(
             signatureId,
             documentId,
-            "signer@getfirefly.io",
+            "signer@fireflysoftware.io",
             "ELECTRONIC"
         );
 
