@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * The sandbox party and agreement already used by the payments journey, and the sandbox personal loan.
- * The amount is the 25.00 EUR posted on that agreement. Samples render this record.
+ * The sandbox party and agreement already used by the payments journey, and a sandbox loan
+ * a lender could issue: Horizon Personal Loan, 250,000.00 EUR, five years, two lines.
  */
 public final class SandboxEngagement {
 
@@ -36,17 +36,18 @@ public final class SandboxEngagement {
     public static final UUID PREDECESSOR_ID = UUID.fromString("10000000-0000-4000-8000-000000000020");
     public static final UUID PRODUCT_ID = UUID.fromString("10000000-0000-4000-8000-000000000202");
     public static final UUID LINE_ID = UUID.fromString("10000000-0000-4000-8000-000000000221");
+    public static final UUID PROTECTION_LINE_ID = UUID.fromString("10000000-0000-4000-8000-000000000222");
     public static final String GIVEN_NAME = "Ada";
     public static final String PARTY_NAME = "Ada Lovelace";
     public static final String PARTY_ROLE = "Account holder";
-    public static final String PRODUCT_NAME = "Personal loan";
+    public static final String PRODUCT_NAME = "Horizon Personal Loan";
     public static final String CURRENCY = "EUR";
-    public static final BigDecimal AMOUNT = new BigDecimal("25.00");
-    public static final String STATUS = "Draft";
-    public static final String CHANGE = "The term now ends on November 1, 2029.";
+    public static final BigDecimal AMOUNT = new BigDecimal("250000.00");
+    public static final String STATUS = "Issued";
+    public static final String CHANGE = "The term now ends on November 1, 2031.";
     public static final LocalDate ISSUED_ON = LocalDate.of(2026, 10, 20);
     public static final LocalDate EFFECTIVE_ON = LocalDate.of(2026, 11, 1);
-    public static final LocalDate ENDS_ON = LocalDate.of(2029, 11, 1);
+    public static final LocalDate ENDS_ON = LocalDate.of(2031, 11, 1);
 
     private SandboxEngagement() {
     }
@@ -62,7 +63,8 @@ public final class SandboxEngagement {
                 new Agreement(CONTRACT_ID, STATUS),
                 new Product(PRODUCT_ID, PRODUCT_NAME, ProductFamilyCode.LENDING),
                 CURRENCY, ISSUED_ON, EFFECTIVE_ON, ENDS_ON, AMOUNT,
-                List.of(new ContractLine(LINE_ID, PRODUCT_ID, "PRIMARY", BigDecimal.ONE, true)),
+                List.of(new ContractLine(LINE_ID, PRODUCT_ID, "Principal", BigDecimal.ONE, true),
+                        new ContractLine(PROTECTION_LINE_ID, PRODUCT_ID, "Credit protection", BigDecimal.ONE, false)),
                 linked ? PREDECESSOR_ID : null,
                 "amendment".equals(templateCode) ? CHANGE : null);
     }

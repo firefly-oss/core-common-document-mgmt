@@ -19,6 +19,9 @@ package io.fireflysoftware.documents.render;
 import io.fireflysoftware.documents.ContractLine;
 import io.fireflysoftware.documents.IssueDocument;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -44,7 +47,7 @@ public final class DocumentModel {
         Map<String, Object> contract = new LinkedHashMap<>();
         contract.put("id", command.contract().id().toString());
         contract.put("status", command.contract().status());
-        contract.put("amount", command.amount().toPlainString());
+        contract.put("amount", money(command.amount()));
         contract.put("predecessorId", command.predecessorId() == null ? "" : command.predecessorId().toString());
         contract.put("change", command.change() == null ? "" : command.change());
         List<Map<String, String>> lines = new ArrayList<>();
@@ -87,6 +90,15 @@ public final class DocumentModel {
         model.put("registeredLabel", KitStationery.REGISTERED_LABEL);
         model.put("registeredLines", List.of(KitStationery.REGISTERED_LINE_1, KitStationery.REGISTERED_LINE_2));
         return model;
+    }
+
+    private static String money(BigDecimal amount) {
+        NumberFormat format = NumberFormat.getNumberInstance(Locale.US);
+        format.setGroupingUsed(true);
+        format.setMinimumFractionDigits(2);
+        format.setMaximumFractionDigits(2);
+        format.setRoundingMode(RoundingMode.HALF_UP);
+        return format.format(amount);
     }
 
     private static String familyLabel(String family) {

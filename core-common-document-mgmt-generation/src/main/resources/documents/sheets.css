@@ -1,0 +1,70 @@
+/* Screen composition only. document.css is the kit stylesheet and stays unchanged.
+   The kit draws one 210 mm column and relies on break-before, which a browser
+   does not turn into a sheet. These rules make the cover, the contents, each
+   section, and the back page separate A4 sheets. */
+
+@media screen {
+  body.kind-contract,
+  body.kind-amendment,
+  body.kind-renewal,
+  body.kind-letter,
+  body.kind-welcome {
+    width: auto;
+    margin: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  body.kind-contract > .cover,
+  body.kind-contract > .toc,
+  body.kind-contract > main,
+  body.kind-contract > .back,
+  body.kind-amendment > .cover,
+  body.kind-amendment > .toc,
+  body.kind-amendment > main,
+  body.kind-amendment > .back,
+  body.kind-renewal > .cover,
+  body.kind-renewal > .toc,
+  body.kind-renewal > main,
+  body.kind-renewal > .back,
+  body.kind-letter > main,
+  body.kind-welcome > main {
+    display: block;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 12mm auto;
+    box-shadow: 0 1px 12px rgba(16, 17, 15, 0.12);
+    box-sizing: border-box;
+  }
+
+  body.kind-contract > .toc,
+  body.kind-amendment > .toc,
+  body.kind-renewal > .toc,
+  body.kind-contract > main,
+  body.kind-amendment > main,
+  body.kind-renewal > main,
+  body.kind-letter > main,
+  body.kind-welcome > main {
+    padding: 25mm 22mm;
+    background: var(--white);
+  }
+
+  body.kind-letter > main { padding-top: 16mm; }
+
+  body.kind-contract > .cover,
+  body.kind-amendment > .cover,
+  body.kind-renewal > .cover,
+  body.kind-contract > .back,
+  body.kind-amendment > .back,
+  body.kind-renewal > .back {
+    height: 297mm;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+body.opener { counter-reset: section; }
+body.opener main { counter-reset: none; }
+body.opener main > h1 { break-before: auto; }
+body.opener > main + main { break-before: page; }
+th, td { overflow-wrap: anywhere; }

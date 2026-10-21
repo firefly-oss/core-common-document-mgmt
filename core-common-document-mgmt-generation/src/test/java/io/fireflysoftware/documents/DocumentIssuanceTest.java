@@ -81,8 +81,14 @@ class DocumentIssuanceTest {
         assertThat(Files.readString(examples.resolve("contract.html")))
                 .contains(SandboxEngagement.PARTY_NAME)
                 .contains(SandboxEngagement.CONTRACT_ID.toString())
-                .contains(SandboxEngagement.AMOUNT.toPlainString())
-                .contains("Contract lines");
+                .contains("250,000.00")
+                .contains("Contract lines")
+                .contains(SandboxEngagement.LINE_ID.toString())
+                .contains(SandboxEngagement.PROTECTION_LINE_ID.toString())
+                .contains("November 1, 2031")
+                .contains("@font-face")
+                .contains("min-height: 297mm")
+                .doesNotContain("0.1 · Draft");
 
         assertThat(port.read(port.issue(SandboxEngagement.issue(DocumentTypeCode.LETTER)).id()).templateCode())
                 .isEqualTo("letter");

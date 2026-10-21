@@ -29,7 +29,9 @@ _blocks.html.j2 and _cover.html.j2. The stylesheet is document.css unchanged.
 <meta name="firefly:kind" content="${kind}">
 <meta name="firefly:template" content="${templateCode}">
 <style>
+<#include "fonts.css" parse=false>
 <#include "document.css" parse=false>
+<#include "sheets.css" parse=false>
 :root{--accent:#FFB34A;--accent-text:#855414;--tint:#F3F1EB;--table-rule:#10110F;--label-dark:#FFB34A;}
 @page {
   size: A4;
@@ -134,7 +136,7 @@ _blocks.html.j2 and _cover.html.j2. The stylesheet is document.css unchanged.
 <div class="cells">
 <div><span class="k">Prepared for</span>${party.name}</div>
 <div><span class="k">Date</span>${issuedOn}</div>
-<div><span class="k">Version</span>0.1 · Draft</div>
+<div><span class="k">Status</span>${contract.status}</div>
 </div>
 <p class="cover-note">Confidential. Prepared for ${party.name}; not for onward distribution.</p>
 </div>
@@ -150,14 +152,14 @@ _blocks.html.j2 and _cover.html.j2. The stylesheet is document.css unchanged.
 
 <#macro back>
 <section class="back back--dark" id="ff_back">
-<div class="lockup" role="img" aria-label="${logoAlt}"><#include "lockup-on-dark.svg" parse=false></div>
+<div class="lockup" role="img" aria-label="${logoAlt}"><#include "lockup-on-dark-back.svg" parse=false></div>
 <p class="back-title">Let’s talk about what comes next.</p>
 <div class="contact">
 <div class="cells">
 <div><span class="k">Contact</span><p>${email}</p><p>${domain}</p></div>
 <div><span class="k">${registeredLabel}</span><#list registeredLines as line><p>${line}</p></#list></div>
 </div>
-<p class="legal">© 2026 ${company}. All rights reserved. This document is confidential and intended solely for its addressee.</p>
+<p class="legal">© 2026 ${company} All rights reserved. This document is confidential and intended solely for its addressee.</p>
 </div>
 </section>
 </#macro>

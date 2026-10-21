@@ -1,7 +1,7 @@
 <#include "_shell.ftl">
-<#assign pageTitle = party.name + "'s personal loan agreement">
+<#assign pageTitle = product.name>
 <@document kind="contract" title=pageTitle description=product.name + " for " + party.name shortTitle=party.name + " · Contract" grid=true opener=true>
-<@cover pageTitle product.name + " denominated in " + currency/>
+<@cover pageTitle "A five-year agreement for " + party.name + ", denominated in " + currency + "."/>
 <@toc>
 <@toc1 "s1" "Parties"/>
 <@toc1 "s2" "Product"/>
@@ -22,19 +22,27 @@
 </tbody>
 </table>
 <@caption "Parties on agreement " + contract.id + "."/>
+</main>
+<main>
 <@h1 "s2" "Product"/>
 <@body "The product is " + product.name + ", identifier " + product.id + ", in the " + product.family + " family. The agreement is " + regulatedLabel?lower_case + "."/>
+</main>
+<main>
 <@h1 "s3" "Amount"/>
 <@body "The agreement is denominated in " + currency + ". The amount is " + contract.amount + " " + currency + "."/>
+</main>
+<main>
 <@h1 "s4" "Term"/>
-<@body "The agreement takes effect on " + effectiveOn + " and ends on " + endsOn + "."/>
+<@body "The agreement takes effect on " + effectiveOn + " and ends on " + endsOn + ". The term is five years."/>
+</main>
+<main>
 <@h1 "s5" "Contract lines"/>
 <table>
 <colgroup><col style="width: 28%"><col style="width: 28%"><col style="width: 16%"><col style="width: 14%"><col style="width: 14%"></colgroup>
 <thead><tr><th>Line</th><th>Product</th><th>Role</th><th class="num">Quantity</th><th>Primary</th></tr></thead>
 <tbody>
 <#list contract.lines as line>
-<tr><td>${line.id}</td><td>${line.productId}</td><td>${line.role}</td><td class="num">${line.quantity}</td><td>${line.primary}</td></tr>
+<tr><td>${line.id}</td><td>${line.productId}</td><td>${line.role}</td><td class="num">${line.quantity}</td><td><#if line.primary == "true">Yes<#else>No</#if></td></tr>
 </#list>
 </tbody>
 </table>
