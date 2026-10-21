@@ -20,6 +20,7 @@
         <module>core-common-document-mgmt-models</module>
         <module>core-common-document-mgmt-sdk</module>
         <module>core-common-document-mgmt-web</module>
+        <module>core-common-document-mgmt-generation</module>
     </modules>
 
     <properties>
@@ -66,6 +67,11 @@
             <dependency>
                 <groupId>io.fireflysoftware</groupId>
                 <artifactId>core-common-document-mgmt-sdk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.fireflysoftware</groupId>
+                <artifactId>core-common-document-mgmt-generation</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

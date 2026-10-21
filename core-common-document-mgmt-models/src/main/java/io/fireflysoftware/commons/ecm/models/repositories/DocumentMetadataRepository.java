@@ -19,6 +19,7 @@ package io.fireflysoftware.commons.ecm.models.repositories;
 
 import io.fireflysoftware.commons.ecm.models.entities.DocumentMetadata;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 
 import java.util.UUID;
 
@@ -29,4 +30,5 @@ import java.util.UUID;
 @Repository
 public interface DocumentMetadataRepository extends BaseRepository<DocumentMetadata, UUID> {
 
+    Flux<DocumentMetadata> findByDocumentId(UUID documentId);
 }

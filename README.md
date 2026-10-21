@@ -18,6 +18,29 @@ Developed by the Firefly Software Foundation. [dev@fireflysoftware.io](mailto:de
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green.svg)](https://spring.io/projects/spring-boot)
 [![Maven](https://img.shields.io/badge/Maven-3.6+-red.svg)](https://maven.apache.org/)
 
+## Issuing a document
+
+Journeys and domains call `DocumentPort` (`io.fireflysoftware.documents.DocumentPort`) in `core-common-document-mgmt-generation`.
+
+`issue` resolves the template from `ReferenceCatalogPort` catalog `DOCUMENT_TYPE`, renders it with FreeMarker (`DocumentRenderPort`, class `FreeMarkerDocumentRenderAdapter`), and stores it through `DocumentStoragePort`. `read` returns the document id, the media type `text/html;charset=UTF-8`, and the template code. A missing catalog row fails before anything is stored. A failed store is compensated, so the id is not readable.
+
+Sandbox is the default and does not use the network. `firefly.reference-data.catalog.adapter=core` selects `MastersReferenceCatalogAdapter`. `firefly.documents.storage=sandbox` selects `SandboxDocumentStorageAdapter`, which an installer replaces by setting `firefly.documents.storage=core` (`DocumentCoreStorageAdapter` writes the `documents` row and `templateCode` / `html` metadata). `firefly.documents.render=freemarker` selects FreeMarker. A later engine replaces `FreeMarkerDocumentRenderAdapter` behind `DocumentRenderPort`.
+
+Template codes, mapped from the consulting kit:
+
+| Call this | Kit document | When |
+| --- | --- | --- |
+| `sow` | Statement of work | Issue a contract |
+| `letter` | Letter | Issue a letter |
+| `report` | Report | |
+| `proposal` | Proposal | |
+| `memo` | Executive memo | |
+| `minutes` | Meeting minutes | |
+| `one-pager` | One-pager | |
+| `welcome` | Welcome | |
+
+The kit has no notice document, so there is no notice template. Rendered samples for the sandbox party Ada Lovelace and agreement `10000000-0000-4000-8000-000000000021` are in `core-common-document-mgmt-generation/examples/`.
+
 A comprehensive, enterprise-grade document management microservice built on Spring Boot WebFlux with reactive programming principles. This microservice is a core component of the **Firefly OpenCore Platform** - an open-source core banking solution that provides advanced document lifecycle management, digital signature capabilities, and seamless integration with the Firefly fireflyframework-ecm-core framework for financial institutions.
 
 ## Overview
