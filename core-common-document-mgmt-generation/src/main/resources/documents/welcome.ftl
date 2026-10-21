@@ -1,35 +1,38 @@
 <#include "_shell.ftl">
 <#assign pageTitle = "Welcome to Firefly, " + party.givenName>
-<@document kind="welcome" title=pageTitle single=true footer="company">
+<@document kind="welcome" title=pageTitle description=pageTitle shortTitle="Welcome" single=true companyFooter=true topRight="Welcome">
 <main>
-<p class="label">Welcome</p>
-<p class="title">Welcome to Firefly, ${party.givenName}</p>
-<p class="lead">Your ${product.name} agreement ${contract.id} is recorded with Firefly Software Solutions Inc. This page states who it is for, when it runs, and where to send a question.</p>
-<@facts/>
-<div class="cols">
-<div>
-<@h1 "ff_first_week" "Your first date"/>
+<@label "Welcome"/>
+<p class="title" role="heading" aria-level="1">${pageTitle}</p>
+<@lead "Agreement " + contract.id + " records a " + product.name + " for " + party.name + ". This page states the role, the dates, and where to send a question."/>
+<div class="fields">
+<div class="row"><span class="k">Role</span><span class="v">${party.role}</span></div>
+<div class="row"><span class="k">Email</span><span class="v">${email}</span></div>
+<div class="row"><span class="k">Start date</span><span class="v">${effectiveOn}</span></div>
+<div class="row"><span class="k">Manager</span><span class="v">${company}</span></div>
+<div class="row"><span class="k">Buddy</span><span class="v">${company}</span></div>
+</div>
+<div class="cols"><div>
+<@h1 "s1" "Your first week"/>
 <ol>
 <li>The agreement was issued on ${issuedOn}.</li>
-<li>It takes effect on ${effectiveOn}.</li>
-<li>It ends on ${endsOn}.</li>
-<li>Keep agreement ${contract.id} with this page.</li>
+<li>It takes effect on ${effectiveOn} and is denominated in ${currency}.</li>
+<li>Product ${product.name}, identifier ${product.id}, family ${product.family}.</li>
+<li>Keep agreement ${contract.id} with party ${party.id}.</li>
 </ol>
-</div>
-<div>
-<@h1 "ff_practice" "The lending agreement"/>
-<p>The product is ${product.name}, identifier ${product.id}, in the ${product.family} family. It is denominated in ${currency}. The agreement status is ${contract.status}.</p>
-<@h1 "ff_how" "How a question is handled"/>
+</div><div>
+<@h1 "s2" "Your practice: Banking"/>
+<@body "The agreement is a " + product.name + " in the " + product.family + " family. It is " + regulatedLabel?lower_case + ". It runs from " + effectiveOn + " through " + endsOn + "."/>
+<@h1 "s3" "How we work"/>
 <ul>
-<li>Write to ${email} and include agreement ${contract.id}.</li>
-<li>${party.name} is the ${party.role} on the agreement.</li>
-<li>${company} keeps the agreement record.</li>
+<li>The agreement identifier is ${contract.id}.</li>
+<li>${party.name} is the ${party.role}.</li>
+<li>Questions go to ${email}.</li>
 </ul>
-</div>
-</div>
-<@h1 "ff_who" "Who to ask"/>
+</div></div>
+<@h1 "s4" "Who to ask"/>
 <table>
-<colgroup><col style="width: 34%"><col style="width: 33%"><col style="width: 33%"></colgroup>
+<colgroup><col style="width: 30%"><col style="width: 30%"><col style="width: 40%"></colgroup>
 <thead><tr><th>Topic</th><th>Who</th><th>How</th></tr></thead>
 <tbody>
 <tr><td>The agreement record</td><td>${company}</td><td>${email}</td></tr>
@@ -37,7 +40,6 @@
 <tr><td>The effective date</td><td>${effectiveOn}</td><td>Agreement ${contract.id}</td></tr>
 </tbody>
 </table>
-<p class="caption">Agreement ${contract.id}. Product ${product.name}. Currency ${currency}.</p>
 <blockquote><p>${slogan}</p></blockquote>
 <p class="q-src">${company}</p>
 </main>
