@@ -138,8 +138,28 @@ public final class DocumentIssuance implements DocumentPort {
         if (command.currency() == null || !CURRENCY.matcher(command.currency()).matches()) {
             throw new IllegalArgumentException("Currency must be a three-letter code");
         }
+        if (command.amount() == null || command.amount().signum() < 0) {
+            throw new IllegalArgumentException("Amount is required");
+        }
+        if (command.lines() == null || command.lines().isEmpty()) {
+            throw new IllegalArgumentException("At least one contract line is required");
+        }
+        for (ContractLine line : command.lines()) {
+            if (line == null || line.id() == null || line.productId() == null || line.role() == null
+                    || line.role().isBlank() || line.quantity() == null) {
+                throw new IllegalArgumentException("Each contract line needs an id, a product, a role, and a quantity");
+            }
+        }
         if (command.issuedOn() == null || command.effectiveOn() == null || command.endsOn() == null) {
             throw new IllegalArgumentException("Issued, effective, and end dates are required");
+        }
+        boolean linked = "amendment".equals(command.templateCode()) || "renewal".equals(command.templateCode());
+        if (linked && command.predecessorId() == null) {
+            throw new IllegalArgumentException("An amendment or a renewal names the predecessor contract");
+        }
+        if ("amendment".equals(command.templateCode())
+                && (command.change() == null || command.change().isBlank())) {
+            throw new IllegalArgumentException("An amendment states what changed");
         }
     }
 

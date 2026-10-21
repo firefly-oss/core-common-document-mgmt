@@ -16,9 +16,11 @@
 
 package io.fireflysoftware.documents.render;
 
+import io.fireflysoftware.documents.ContractLine;
 import io.fireflysoftware.documents.IssueDocument;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -42,6 +44,20 @@ public final class DocumentModel {
         Map<String, Object> contract = new LinkedHashMap<>();
         contract.put("id", command.contract().id().toString());
         contract.put("status", command.contract().status());
+        contract.put("amount", command.amount().toPlainString());
+        contract.put("predecessorId", command.predecessorId() == null ? "" : command.predecessorId().toString());
+        contract.put("change", command.change() == null ? "" : command.change());
+        List<Map<String, String>> lines = new ArrayList<>();
+        for (ContractLine line : command.lines()) {
+            Map<String, String> row = new LinkedHashMap<>();
+            row.put("id", line.id().toString());
+            row.put("productId", line.productId().toString());
+            row.put("role", line.role());
+            row.put("quantity", line.quantity().toPlainString());
+            row.put("primary", Boolean.toString(line.primary()));
+            lines.add(row);
+        }
+        contract.put("lines", lines);
 
         String family = familyLabel(command.product().family().name());
         Map<String, Object> product = new LinkedHashMap<>();

@@ -4,7 +4,7 @@
 <main>
 <@label "Welcome"/>
 <p class="title" role="heading" aria-level="1">${pageTitle}</p>
-<@lead "Agreement " + contract.id + " records a " + product.name + " for " + party.name + ". This page states the role, the dates, and where to send a question."/>
+<@lead "Onboarding is complete. Agreement " + contract.id + " records a " + product.name + " for " + party.name + ". This page states the role, the amount, and where to send a question."/>
 <div class="fields">
 <div class="row"><span class="k">Role</span><span class="v">${party.role}</span></div>
 <div class="row"><span class="k">Email</span><span class="v">${email}</span></div>
@@ -16,7 +16,7 @@
 <@h1 "s1" "Your first week"/>
 <ol>
 <li>The agreement was issued on ${issuedOn}.</li>
-<li>It takes effect on ${effectiveOn} and is denominated in ${currency}.</li>
+<li>It takes effect on ${effectiveOn}. The amount is ${contract.amount} ${currency}.</li>
 <li>Product ${product.name}, identifier ${product.id}, family ${product.family}.</li>
 <li>Keep agreement ${contract.id} with party ${party.id}.</li>
 </ol>

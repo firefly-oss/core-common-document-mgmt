@@ -8,7 +8,7 @@
 <p class="subject">Personal loan agreement ${contract.id}</p>
 <p class="salutation">Dear ${party.name},</p>
 <@body "This letter confirms agreement " + contract.id + " for " + party.name + ", issued on " + issuedOn + "."/>
-<@body "The product is " + product.name + ", identifier " + product.id + ", in the " + product.family + " family. The agreement is denominated in " + currency + " and its status is " + contract.status + ". It is " + regulatedLabel?lower_case + "."/>
+<@body "The product is " + product.name + ", identifier " + product.id + ", in the " + product.family + " family. The agreement is denominated in " + currency + ". The amount is " + contract.amount + " " + currency + ". Its status is " + contract.status + ". It is " + regulatedLabel?lower_case + "."/>
 <@body "The agreement takes effect on " + effectiveOn + " and ends on " + endsOn + ". Please keep this letter with the agreement identifier. Questions go to " + email + " before " + effectiveOn + "."/>
 <@signature/>
 </main>

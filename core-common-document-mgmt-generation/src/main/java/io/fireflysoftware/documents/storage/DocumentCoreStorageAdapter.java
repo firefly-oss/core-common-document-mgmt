@@ -143,8 +143,7 @@ public final class DocumentCoreStorageAdapter implements DocumentStoragePort {
 
     private static DocumentType ecmType(String templateCode) {
         return switch (templateCode) {
-            case "sow" -> DocumentType.CONTRACT;
-            case "report" -> DocumentType.REPORT;
+            case "contract", "amendment", "renewal" -> DocumentType.CONTRACT;
             default -> DocumentType.DOCUMENT;
         };
     }

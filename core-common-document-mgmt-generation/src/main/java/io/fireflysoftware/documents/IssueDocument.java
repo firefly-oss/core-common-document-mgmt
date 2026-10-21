@@ -19,11 +19,15 @@ package io.fireflysoftware.documents;
 import io.fireflysoftware.domain.referencedata.catalog.DocumentLanguage;
 import io.fireflysoftware.domain.referencedata.catalog.ProductFamilyCode;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Facts the caller passes. Currency is a three-letter code.
  * {@code templateCode} is a {@code DOCUMENT_TYPE} catalog code.
+ * An amendment or a renewal names {@code predecessorId}. An amendment also states {@code change}.
  */
 public record IssueDocument(
         String templateCode,
@@ -36,5 +40,9 @@ public record IssueDocument(
         String currency,
         LocalDate issuedOn,
         LocalDate effectiveOn,
-        LocalDate endsOn) {
+        LocalDate endsOn,
+        BigDecimal amount,
+        List<ContractLine> lines,
+        UUID predecessorId,
+        String change) {
 }

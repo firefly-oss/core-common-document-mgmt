@@ -26,20 +26,17 @@ Journeys and domains call `DocumentPort` (`io.fireflysoftware.documents.Document
 
 Sandbox is the default and does not use the network. `firefly.reference-data.catalog.adapter=core` selects `MastersReferenceCatalogAdapter`. `firefly.documents.storage=sandbox` selects `SandboxDocumentStorageAdapter`, which an installer replaces by setting `firefly.documents.storage=core` (`DocumentCoreStorageAdapter` writes the `documents` row and `templateCode` / `html` metadata). `firefly.documents.render=freemarker` selects FreeMarker. A later engine replaces `FreeMarkerDocumentRenderAdapter` behind `DocumentRenderPort`.
 
-Template codes, mapped from the consulting kit:
+Template codes. The layout and `document.css` stay the consulting kit's. The documents are contracts.
 
-| Call this | Kit document | When |
+| Call this | Layout | When |
 | --- | --- | --- |
-| `sow` | Statement of work | Issue a contract |
-| `letter` | Letter | Issue a letter |
-| `report` | Report | |
-| `proposal` | Proposal | |
-| `memo` | Executive memo | |
-| `minutes` | Meeting minutes | |
-| `one-pager` | One-pager | |
-| `welcome` | Welcome | |
+| `contract` | Long document: cover and blocks | Issue the agreement |
+| `amendment` | Long document: cover and blocks | Change an existing agreement |
+| `renewal` | Long document: cover and blocks | Continue an agreement |
+| `letter` | Letter | Write about an agreement |
+| `welcome` | Welcome | The page after onboarding |
 
-The kit has no notice document, so there is no notice template. Rendered samples for the sandbox party Ada Lovelace and agreement `10000000-0000-4000-8000-000000000021` are in `core-common-document-mgmt-generation/examples/`.
+A rendered contract for Ada Lovelace and agreement `10000000-0000-4000-8000-000000000021` is in `core-common-document-mgmt-generation/examples/contract.html`.
 
 A comprehensive, enterprise-grade document management microservice built on Spring Boot WebFlux with reactive programming principles. This microservice is a core component of the **Firefly OpenCore Platform** - an open-source core banking solution that provides advanced document lifecycle management, digital signature capabilities, and seamless integration with the Firefly fireflyframework-ecm-core framework for financial institutions.
 

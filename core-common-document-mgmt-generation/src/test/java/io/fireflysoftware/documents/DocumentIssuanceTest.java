@@ -76,7 +76,13 @@ class DocumentIssuanceTest {
             Path sample = examples.resolve(type.code() + ".html");
             Files.writeString(sample, read.html());
             assertThat(Files.readString(sample)).isEqualTo(read.html());
+            assertThat(read.html()).contains("Firefly documents: A4 print stylesheet");
         }
+        assertThat(Files.readString(examples.resolve("contract.html")))
+                .contains(SandboxEngagement.PARTY_NAME)
+                .contains(SandboxEngagement.CONTRACT_ID.toString())
+                .contains(SandboxEngagement.AMOUNT.toPlainString())
+                .contains("Contract lines");
 
         assertThat(port.read(port.issue(SandboxEngagement.issue(DocumentTypeCode.LETTER)).id()).templateCode())
                 .isEqualTo("letter");
@@ -105,7 +111,8 @@ class DocumentIssuanceTest {
                 new Agreement(SandboxEngagement.CONTRACT_ID, SandboxEngagement.STATUS),
                 new Product(SandboxEngagement.PRODUCT_ID, SandboxEngagement.PRODUCT_NAME, ProductFamilyCode.LENDING),
                 SandboxEngagement.CURRENCY, SandboxEngagement.ISSUED_ON, SandboxEngagement.EFFECTIVE_ON,
-                SandboxEngagement.ENDS_ON);
+                SandboxEngagement.ENDS_ON, SandboxEngagement.AMOUNT, SandboxEngagement.issue("letter").lines(),
+                null, null);
 
         assertThatThrownBy(() -> port.issue(spanish))
                 .isInstanceOf(UnknownDocumentTypeException.class)
@@ -122,7 +129,8 @@ class DocumentIssuanceTest {
                         SandboxEngagement.PARTY_ROLE),
                 new Agreement(SandboxEngagement.CONTRACT_ID, SandboxEngagement.STATUS),
                 new Product(SandboxEngagement.PRODUCT_ID, SandboxEngagement.PRODUCT_NAME, ProductFamilyCode.LENDING),
-                "eu", SandboxEngagement.ISSUED_ON, SandboxEngagement.EFFECTIVE_ON, SandboxEngagement.ENDS_ON);
+                "eu", SandboxEngagement.ISSUED_ON, SandboxEngagement.EFFECTIVE_ON, SandboxEngagement.ENDS_ON,
+                SandboxEngagement.AMOUNT, SandboxEngagement.issue("letter").lines(), null, null);
 
         assertThatThrownBy(() -> port.issue(command))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -136,7 +144,7 @@ class DocumentIssuanceTest {
         DocumentPort port = port(storage);
 
         DocumentStoreException failure = org.junit.jupiter.api.Assertions.assertThrows(DocumentStoreException.class,
-                () -> port.issue(SandboxEngagement.issue(DocumentTypeCode.STATEMENT_OF_WORK)));
+                () -> port.issue(SandboxEngagement.issue(DocumentTypeCode.CONTRACT)));
 
         assertThat(failure.documentId()).isNotNull();
         assertThat(storage.read(failure.documentId())).isEmpty();
@@ -152,9 +160,9 @@ class DocumentIssuanceTest {
         };
         DocumentPort port = new DocumentIssuance(new SandboxReferenceCatalogAdapter(), broken, storage);
 
-        assertThatThrownBy(() -> port.issue(SandboxEngagement.issue(DocumentTypeCode.REPORT)))
+        assertThatThrownBy(() -> port.issue(SandboxEngagement.issue(DocumentTypeCode.CONTRACT)))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("report");
+                .hasMessageContaining("contract");
         assertThat(storage.stores.get()).isZero();
     }
 
@@ -166,8 +174,10 @@ class DocumentIssuanceTest {
                     assertThat(context.getBean(DocumentStoragePort.class)).isInstanceOf(SandboxDocumentStorageAdapter.class);
                     assertThat(context.getBean(DocumentRenderPort.class)).isInstanceOf(FreeMarkerDocumentRenderAdapter.class);
                     assertThat(context.getBean(ReferenceCatalogPort.class)).isInstanceOf(SandboxReferenceCatalogAdapter.class);
-                    assertThat(context.getBean(ReferenceCatalogPort.class).find(CatalogCode.DOCUMENT_TYPE, "sow").block())
+                    assertThat(context.getBean(ReferenceCatalogPort.class).find(CatalogCode.DOCUMENT_TYPE, "contract").block())
                             .isNotNull();
+                    assertThat(context.getBean(ReferenceCatalogPort.class).find(CatalogCode.DOCUMENT_TYPE, "sow").block())
+                            .isNull();
                 });
     }
 
