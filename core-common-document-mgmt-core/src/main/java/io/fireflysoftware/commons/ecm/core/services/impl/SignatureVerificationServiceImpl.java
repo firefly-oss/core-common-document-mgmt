@@ -25,6 +25,7 @@ import io.fireflysoftware.commons.ecm.core.services.DocumentSignatureService;
 import io.fireflysoftware.commons.ecm.core.services.SignatureVerificationService;
 import io.fireflysoftware.commons.ecm.interfaces.dtos.DocumentSignatureDTO;
 import io.fireflysoftware.commons.ecm.interfaces.dtos.SignatureVerificationDTO;
+import io.fireflysoftware.commons.ecm.interfaces.enums.SignatureStatus;
 import io.fireflysoftware.commons.ecm.interfaces.enums.VerificationStatus;
 import io.fireflysoftware.commons.ecm.models.entities.SignatureVerification;
 import io.fireflysoftware.commons.ecm.models.repositories.SignatureVerificationRepository;
@@ -129,29 +130,50 @@ public class SignatureVerificationServiceImpl implements SignatureVerificationSe
 
     @Override
     public Mono<SignatureVerificationDTO> verifySignature(UUID documentSignatureId) {
-        // In a real implementation, this would call a signature verification service
-        // For now, we'll just create a verification record with a random status
         return documentSignatureService.getById(documentSignatureId)
                 .switchIfEmpty(Mono.error(new RuntimeException("Document signature not found with ID: " + documentSignatureId)))
                 .flatMap(signature -> {
+                    VerificationStatus status = recordedStatus(signature);
+                    boolean certificatePresent = signature.getSignatureCertificate() != null
+                            && !signature.getSignatureCertificate().isBlank();
                     SignatureVerificationDTO verification = SignatureVerificationDTO.builder()
                             .documentSignatureId(documentSignatureId)
-                            .verificationStatus(VerificationStatus.VALID) // In a real implementation, this would be determined by the verification process
-                            .verificationDetails("Signature verified successfully")
-                            .verificationProvider("Mock Provider")
+                            .verificationStatus(status)
+                            .verificationDetails(details(status))
+                            .verificationProvider(signature.getSignatureProviderId() == null
+                                    ? null : signature.getSignatureProviderId().toString())
                             .verificationTimestamp(LocalDateTime.now())
-                            .certificateValid(true)
-                            .certificateDetails("Mock certificate details")
-                            .certificateIssuer("Mock Certificate Authority")
-                            .certificateSubject("CN=Mock Signer, O=Mock Organization, C=US")
-                            .certificateValidFrom(LocalDateTime.now().minusYears(1))
-                            .certificateValidUntil(LocalDateTime.now().plusYears(1))
-                            .documentIntegrityValid(true)
+                            .certificateValid(certificatePresent && status == VerificationStatus.VALID)
+                            .certificateDetails(signature.getSignatureCertificate())
+                            .certificateValidUntil(signature.getExpirationDate())
                             .tenantId(signature.getTenantId())
                             .build();
-
                     return create(verification);
                 });
+    }
+
+    private static VerificationStatus recordedStatus(DocumentSignatureDTO signature) {
+        SignatureStatus recorded = signature.getSignatureStatus();
+        boolean signed = recorded == SignatureStatus.SIGNED
+                && signature.getSignatureData() != null
+                && !signature.getSignatureData().isBlank();
+        boolean expired = signature.getExpirationDate() != null
+                && !signature.getExpirationDate().isAfter(LocalDateTime.now());
+        if (signed && !expired) {
+            return VerificationStatus.VALID;
+        }
+        if (recorded == null || recorded == SignatureStatus.PENDING || recorded == SignatureStatus.IN_PROGRESS) {
+            return VerificationStatus.NOT_VERIFIED;
+        }
+        return VerificationStatus.INVALID;
+    }
+
+    private static String details(VerificationStatus status) {
+        return switch (status) {
+            case VALID -> "Stored signature is signed and unexpired";
+            case NOT_VERIFIED -> "Stored signature is not signed";
+            default -> "Stored signature is not a current signature";
+        };
     }
 
     @Override
