@@ -23,14 +23,16 @@ import io.fireflysoftware.documents.render.FreeMarkerDocumentRenderAdapter;
 import io.fireflysoftware.documents.storage.DocumentCoreStorageAdapter;
 import io.fireflysoftware.documents.storage.DocumentStoragePort;
 import io.fireflysoftware.documents.storage.SandboxDocumentStorageAdapter;
-import io.fireflysoftware.domain.referencedata.catalog.ReferenceCatalogPort;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Sandbox storage and FreeMarker are the defaults. Neither opens a network connection.
+ * Sandbox storage, the in-module template catalog, and FreeMarker are the defaults.
+ * None of them opens a network connection.
  * {@code firefly.documents.storage=core} selects the document-core adapter.
+ * {@code firefly.documents.templates=core} reads the five template codes from reference master data.
  * {@code firefly.documents.render=freemarker} selects FreeMarker. A future engine replaces that bean.
  */
 @Configuration
@@ -55,7 +57,20 @@ public class DocumentAdapterConfiguration {
     }
 
     @Bean
-    public DocumentPort documentPort(ReferenceCatalogPort catalogs, DocumentRenderPort renderer, DocumentStoragePort storage) {
-        return new DocumentIssuance(catalogs, renderer, storage);
+    @ConditionalOnProperty(prefix = "firefly.documents", name = "templates", havingValue = "sandbox", matchIfMissing = true)
+    public DocumentTemplateCatalog sandboxDocumentTemplateCatalog() {
+        return new SandboxDocumentTemplateCatalog();
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "firefly.documents", name = "templates", havingValue = "core")
+    public DocumentTemplateCatalog referenceDocumentTemplateCatalog(
+            @Value("${firefly.documents.reference-base-url:http://localhost:8080}") String baseUrl) {
+        return new SdkDocumentTemplateCatalog(baseUrl);
+    }
+
+    @Bean
+    public DocumentPort documentPort(DocumentTemplateCatalog catalog, DocumentRenderPort renderer, DocumentStoragePort storage) {
+        return new DocumentIssuance(catalog, renderer, storage);
     }
 }

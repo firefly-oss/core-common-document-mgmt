@@ -16,34 +16,28 @@
 
 package io.fireflysoftware.documents;
 
-import io.fireflysoftware.domain.referencedata.catalog.CatalogCode;
-import io.fireflysoftware.domain.referencedata.catalog.CatalogEntry;
-import io.fireflysoftware.domain.referencedata.catalog.CatalogStatus;
-import io.fireflysoftware.domain.referencedata.catalog.ReferenceCatalogPort;
 import io.fireflysoftware.documents.render.DocumentRenderPort;
 import io.fireflysoftware.documents.render.RenderedDocument;
 import io.fireflysoftware.documents.storage.DocumentStoragePort;
 import io.fireflysoftware.documents.storage.StoredDocument;
 
-import java.time.Duration;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
- * Resolves a consulting-kit template from {@link ReferenceCatalogPort}, renders it, and stores it
- * in the document core through {@link DocumentStoragePort}.
+ * Resolves a template from {@link DocumentTemplateCatalog}, renders it, and stores it
+ * through {@link DocumentStoragePort}.
  */
 public final class DocumentIssuance implements DocumentPort {
 
     private static final Pattern CURRENCY = Pattern.compile("^[A-Z]{3}$");
-    private static final Duration READ_TIMEOUT = Duration.ofSeconds(5);
 
-    private final ReferenceCatalogPort catalogs;
+    private final DocumentTemplateCatalog catalog;
     private final DocumentRenderPort renderer;
     private final DocumentStoragePort storage;
 
-    public DocumentIssuance(ReferenceCatalogPort catalogs, DocumentRenderPort renderer, DocumentStoragePort storage) {
-        this.catalogs = catalogs;
+    public DocumentIssuance(DocumentTemplateCatalog catalog, DocumentRenderPort renderer, DocumentStoragePort storage) {
+        this.catalog = catalog;
         this.renderer = renderer;
         this.storage = storage;
     }
@@ -51,9 +45,8 @@ public final class DocumentIssuance implements DocumentPort {
     @Override
     public IssuedDocument issue(IssueDocument command) {
         validate(command);
-        CatalogEntry template = resolve(command);
-        RenderedDocument rendered = renderer.render(template.attributes().get("templateCode"),
-                template.attributes().get("kitKind"), template.label(), command);
+        DocumentTemplate template = resolve(command);
+        RenderedDocument rendered = renderer.render(template.code(), template.kitKind(), template.label(), command);
         if (rendered.html() == null || rendered.html().isBlank()) {
             throw new IllegalArgumentException("Template " + command.templateCode() + " rendered an empty document");
         }
@@ -79,23 +72,19 @@ public final class DocumentIssuance implements DocumentPort {
                 .orElseThrow(() -> new DocumentNotFoundException(documentId));
     }
 
-    private CatalogEntry resolve(IssueDocument command) {
-        CatalogEntry entry = catalogs.find(CatalogCode.DOCUMENT_TYPE, command.templateCode()).block(READ_TIMEOUT);
-        if (entry == null || entry.status() != CatalogStatus.ACTIVE) {
+    private DocumentTemplate resolve(IssueDocument command) {
+        DocumentTemplate template = catalog.find(command.templateCode());
+        if (template == null || !template.active()) {
             throw unknown(command);
         }
-        String language = entry.attributes().get("language");
-        String family = entry.attributes().get("productFamily");
-        String regulated = entry.attributes().get("regulated");
-        String templateCode = entry.attributes().get("templateCode");
-        boolean sameLanguage = command.language().code().equals(language);
-        boolean sameFamily = command.productFamily().name().equals(family);
-        boolean sameRegulated = Boolean.toString(command.regulated()).equals(regulated);
-        boolean sameTemplate = command.templateCode().equals(templateCode);
+        boolean sameLanguage = template.language() == command.language();
+        boolean sameFamily = template.productFamily() == command.productFamily();
+        boolean sameRegulated = template.regulated() == command.regulated();
+        boolean sameTemplate = command.templateCode().equals(template.code());
         if (!sameLanguage || !sameFamily || !sameRegulated || !sameTemplate) {
             throw unknown(command);
         }
-        return entry;
+        return template;
     }
 
     private static UnknownDocumentTypeException unknown(IssueDocument command) {

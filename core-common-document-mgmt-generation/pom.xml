@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>io.fireflysoftware</groupId>
-            <artifactId>domain-core-reference-data-core</artifactId>
+            <artifactId>core-common-reference-master-data-sdk</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

@@ -24,7 +24,7 @@ import io.fireflysoftware.documents.DocumentStoreException;
 import io.fireflysoftware.documents.SandboxEngagement;
 import io.fireflysoftware.documents.render.FreeMarkerDocumentRenderAdapter;
 import io.fireflysoftware.documents.render.RenderedDocument;
-import io.fireflysoftware.domain.referencedata.catalog.DocumentTypeCode;
+import io.fireflysoftware.documents.DocumentTypeCode;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

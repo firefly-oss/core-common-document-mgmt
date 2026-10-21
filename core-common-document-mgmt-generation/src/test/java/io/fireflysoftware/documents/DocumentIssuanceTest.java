@@ -21,13 +21,6 @@ import io.fireflysoftware.documents.render.FreeMarkerDocumentRenderAdapter;
 import io.fireflysoftware.documents.storage.DocumentStoragePort;
 import io.fireflysoftware.documents.storage.SandboxDocumentStorageAdapter;
 import io.fireflysoftware.documents.storage.StoredDocument;
-import io.fireflysoftware.domain.referencedata.catalog.CatalogCode;
-import io.fireflysoftware.domain.referencedata.catalog.DocumentLanguage;
-import io.fireflysoftware.domain.referencedata.catalog.DocumentTypeCode;
-import io.fireflysoftware.domain.referencedata.catalog.ProductFamilyCode;
-import io.fireflysoftware.domain.referencedata.catalog.ReferenceCatalogAdapterConfiguration;
-import io.fireflysoftware.domain.referencedata.catalog.ReferenceCatalogPort;
-import io.fireflysoftware.domain.referencedata.catalog.SandboxReferenceCatalogAdapter;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
@@ -164,7 +157,7 @@ class DocumentIssuanceTest {
         DocumentRenderPort broken = (templateCode, kitKind, label, command) -> {
             throw new IllegalArgumentException("Template " + templateCode + " could not be rendered");
         };
-        DocumentPort port = new DocumentIssuance(new SandboxReferenceCatalogAdapter(), broken, storage);
+        DocumentPort port = new DocumentIssuance(new SandboxDocumentTemplateCatalog(), broken, storage);
 
         assertThatThrownBy(() -> port.issue(SandboxEngagement.issue(DocumentTypeCode.CONTRACT)))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -175,20 +168,22 @@ class DocumentIssuanceTest {
     @Test
     void sandboxIsTheDefaultAndCoreStorageIsSelectable() {
         new ApplicationContextRunner()
-                .withUserConfiguration(DocumentAdapterConfiguration.class, ReferenceCatalogAdapterConfiguration.class)
+                .withUserConfiguration(DocumentAdapterConfiguration.class)
                 .run(context -> {
                     assertThat(context.getBean(DocumentStoragePort.class)).isInstanceOf(SandboxDocumentStorageAdapter.class);
                     assertThat(context.getBean(DocumentRenderPort.class)).isInstanceOf(FreeMarkerDocumentRenderAdapter.class);
-                    assertThat(context.getBean(ReferenceCatalogPort.class)).isInstanceOf(SandboxReferenceCatalogAdapter.class);
-                    assertThat(context.getBean(ReferenceCatalogPort.class).find(CatalogCode.DOCUMENT_TYPE, "contract").block())
-                            .isNotNull();
-                    assertThat(context.getBean(ReferenceCatalogPort.class).find(CatalogCode.DOCUMENT_TYPE, "sow").block())
-                            .isNull();
+                    assertThat(context.getBean(DocumentTemplateCatalog.class)).isInstanceOf(SandboxDocumentTemplateCatalog.class);
+                    assertThat(context.getBean(DocumentTemplateCatalog.class).find("contract")).isNotNull();
+                    assertThat(context.getBean(DocumentTemplateCatalog.class).find("sow")).isNull();
+                    assertThat(context.getBean(DocumentTemplateCatalog.class).find("amendment").code()).isEqualTo("amendment");
+                    assertThat(context.getBean(DocumentTemplateCatalog.class).find("renewal").code()).isEqualTo("renewal");
+                    assertThat(context.getBean(DocumentTemplateCatalog.class).find("letter").code()).isEqualTo("letter");
+                    assertThat(context.getBean(DocumentTemplateCatalog.class).find("welcome").code()).isEqualTo("welcome");
                 });
     }
 
     private static DocumentPort port(DocumentStoragePort storage) {
-        return new DocumentIssuance(new SandboxReferenceCatalogAdapter(), new FreeMarkerDocumentRenderAdapter(), storage);
+        return new DocumentIssuance(new SandboxDocumentTemplateCatalog(), new FreeMarkerDocumentRenderAdapter(), storage);
     }
 
     private static Path examplesDirectory() {

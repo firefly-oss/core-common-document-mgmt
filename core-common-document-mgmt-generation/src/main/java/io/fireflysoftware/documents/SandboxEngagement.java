@@ -16,10 +16,6 @@
 
 package io.fireflysoftware.documents;
 
-import io.fireflysoftware.domain.referencedata.catalog.DocumentLanguage;
-import io.fireflysoftware.domain.referencedata.catalog.DocumentTypeCode;
-import io.fireflysoftware.domain.referencedata.catalog.ProductFamilyCode;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;

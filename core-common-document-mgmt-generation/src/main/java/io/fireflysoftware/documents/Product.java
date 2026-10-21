@@ -16,8 +16,6 @@
 
 package io.fireflysoftware.documents;
 
-import io.fireflysoftware.domain.referencedata.catalog.ProductFamilyCode;
-
 import java.util.UUID;
 
 /** The product named on the document. The family is the catalog family, not a second product master. */
