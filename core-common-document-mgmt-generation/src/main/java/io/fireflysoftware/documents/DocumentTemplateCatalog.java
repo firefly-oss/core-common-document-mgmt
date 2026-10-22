@@ -17,8 +17,8 @@
 package io.fireflysoftware.documents;
 
 /**
- * Document types this module may issue. The sandbox implementation opens no socket.
- * {@code firefly.documents.templates=core} reads the same five codes from reference master data.
+ * Document types this module may issue. Both selections open no socket.
+ * {@code firefly.documents.templates=core} uses the same five codes held in this module.
  */
 public interface DocumentTemplateCatalog {
 

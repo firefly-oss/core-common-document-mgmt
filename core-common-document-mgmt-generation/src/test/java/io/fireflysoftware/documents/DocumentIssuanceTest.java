@@ -182,6 +182,19 @@ class DocumentIssuanceTest {
                 });
     }
 
+    @Test
+    void coreTemplatesStayInsideThisModule() {
+        new ApplicationContextRunner()
+                .withUserConfiguration(DocumentAdapterConfiguration.class)
+                .withPropertyValues("firefly.documents.templates=core")
+                .run(context -> {
+                    DocumentTemplateCatalog catalog = context.getBean(DocumentTemplateCatalog.class);
+                    assertThat(catalog).isInstanceOf(SandboxDocumentTemplateCatalog.class);
+                    assertThat(catalog.find("welcome").code()).isEqualTo("welcome");
+                    assertThat(catalog.find("contract").code()).isEqualTo("contract");
+                });
+    }
+
     private static DocumentPort port(DocumentStoragePort storage) {
         return new DocumentIssuance(new SandboxDocumentTemplateCatalog(), new FreeMarkerDocumentRenderAdapter(), storage);
     }

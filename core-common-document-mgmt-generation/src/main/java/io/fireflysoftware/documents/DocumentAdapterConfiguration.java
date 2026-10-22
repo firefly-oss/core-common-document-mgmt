@@ -23,7 +23,6 @@ import io.fireflysoftware.documents.render.FreeMarkerDocumentRenderAdapter;
 import io.fireflysoftware.documents.storage.DocumentCoreStorageAdapter;
 import io.fireflysoftware.documents.storage.DocumentStoragePort;
 import io.fireflysoftware.documents.storage.SandboxDocumentStorageAdapter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
  * Sandbox storage, the in-module template catalog, and FreeMarker are the defaults.
  * None of them opens a network connection.
  * {@code firefly.documents.storage=core} selects the document-core adapter.
- * {@code firefly.documents.templates=core} reads the five template codes from reference master data.
+ * {@code firefly.documents.templates=core} uses the five template codes held in this module.
  * {@code firefly.documents.render=freemarker} selects FreeMarker. A future engine replaces that bean.
  */
 @Configuration
@@ -64,9 +63,8 @@ public class DocumentAdapterConfiguration {
 
     @Bean
     @ConditionalOnProperty(prefix = "firefly.documents", name = "templates", havingValue = "core")
-    public DocumentTemplateCatalog referenceDocumentTemplateCatalog(
-            @Value("${firefly.documents.reference-base-url:http://localhost:8080}") String baseUrl) {
-        return new SdkDocumentTemplateCatalog(baseUrl);
+    public DocumentTemplateCatalog coreDocumentTemplateCatalog() {
+        return new SandboxDocumentTemplateCatalog();
     }
 
     @Bean
